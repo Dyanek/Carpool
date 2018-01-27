@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+
+
+<div class="form-horizontal">
+
+    <div class="row">
+        <div class="form-group">
+            <p class="control-label col-md-2">User name*</p>
+            <div class="col-md-3">
+                <p class="form-control">BobRazo</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">First name*</p>
+            <div class="col-md-3">
+                <p class="form-control">Bob</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Last name*</p>
+            <div class="col-md-3">
+                <p class="form-control">Razowski</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Email*</p>
+            <div class="col-md-3">
+                <p class="form-control">Bob.Razowski@gmail.com*</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Phone number*</p>
+            <div class="col-md-3">
+                <p class="form-control">+44123455678</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group">
+            <p class="control-label col-md-2">Address line 1*</p>
+            <div class="col-md-3">
+                <p class="form-control">12 Hami street</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Address line 2</p>
+            <div class="col-md-3">
+                <p class="form-control"></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">City*</p>
+            <div class="col-md-3">
+                <p class="form-control">Paisley</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Country*</p>
+            <div class="col-md-3">
+                @Html.DropDownList("County", new SelectList(new List<string>() { "United-Kingdom", "Germany", "France", "Belgium", "Italy"}), new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <hr />
+
+        <div class="form-group row text-center">
+            <p class="control-label col-md-3">* = compulsory fields</p>
+            <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                @Html.ActionLink("Cancel", "Profile", "Account", new { @class = "btn btn-default hvr-icon-back NewsBtnDelet" })
+            </div>
+            <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                <button type="submit" class="btn btn-primary hvr-icon-fade">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
