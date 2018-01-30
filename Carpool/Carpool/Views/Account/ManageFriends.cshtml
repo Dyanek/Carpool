@@ -1,7 +1,30 @@
 ﻿@{
-    ViewBag.Title = "ManageFriends";
+    ViewBag.Title = "Manage my friends";
 }
 
 <h2>Manage my friends</h2>
 
 Here you can look for new friends and manage your other friends
+
+<div class="form-horizontal">
+
+    <div class="row">
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Select a friend</p>
+            <div class="col-md-3">
+                @Html.DropDownList("County", new SelectList(new List<string>() { "", "Cruxy", "DiabloX9", "MrBboy45"}), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade">Send a message</button>
+        </div>
+
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade">Unfriend</button>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_FindFriend")

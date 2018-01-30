@@ -13,5 +13,10 @@ namespace Carpool.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateTrip()
+        {
+            return View();
+        }
     }
 }

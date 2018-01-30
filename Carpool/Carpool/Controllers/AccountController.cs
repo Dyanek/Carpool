@@ -8,13 +8,22 @@ namespace Carpool.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+        public ActionResult LogOut()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Profile()
         {
             return View();
         }
 
         public ActionResult ManageFriends()
+        {
+            return View();
+        }
+
+        public ActionResult FindFriend()
         {
             return View();
         }

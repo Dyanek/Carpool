@@ -1,46 +1,36 @@
-﻿
-@{
-    ViewBag.Title = "Profile";
+﻿@{
+    ViewBag.Title = "Create a trip";
 }
 
-<h2>Profile</h2>
-
+<h2>Create a trip</h2>
 
 <div class="form-horizontal">
-
     <div class="row">
         <div class="form-group">
-            <p class="control-label col-md-2">User name*</p>
+            <p class="control-label col-md-2">Number of persons (not including you)*</p>
             <div class="col-md-3">
-                <input type="text" class="form-control" value="BobRazo">
+                <input type="text" class="form-control" value="2">
             </div>
         </div>
 
         <div class="form-group">
-            <p class="control-label col-md-2">First name*</p>
+            <p class="control-label col-md-2">Total price (in pounds)*</p>
             <div class="col-md-3">
-                <input type="text" class="form-control" value="Bob">
+                <input type="text" class="form-control" value="2.25">
             </div>
         </div>
 
         <div class="form-group">
-            <p class="control-label col-md-2">Last name*</p>
+            <p class="control-label col-md-2">Beginning hour*</p>
             <div class="col-md-3">
-                <input type="text" class="form-control" value="Razowski">
+                <input type="text" class="form-control" value="15:00">
             </div>
         </div>
 
         <div class="form-group">
-            <p class="control-label col-md-2">Email*</p>
+            <p class="control-label col-md-2">Estimated time (in hours)*</p>
             <div class="col-md-3">
-                <input type="text" class="form-control" value="bob.razowski@gmail.com">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Phone number*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="+44123456789">
+                <input type="text" class="form-control" value="0.5">
             </div>
         </div>
     </div>
@@ -70,7 +60,7 @@
         <div class="form-group">
             <p class="control-label col-md-2">Country*</p>
             <div class="col-md-3">
-                @Html.DropDownList("County", new SelectList(new List<string>() { "United-Kingdom", "Germany", "France", "Belgium", "Italy"}), new { @class = "form-control" })
+                @Html.DropDownList("County", new SelectList(new List<string>() { "United-Kingdom", "Germany", "France", "Belgium", "Italy" }), new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -81,10 +71,10 @@
         <div class="form-group row text-center">
             <p class="control-label col-md-3">* = compulsory fields</p>
             <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                @Html.ActionLink("Cancel", "Profile", "Account", new { @class = "btn btn-default hvr-icon-back NewsBtnDelet" })
+                @Html.ActionLink("Cancel", "Index", "Trip", new { @class = "btn btn-default hvr-icon-back NewsBtnDelet" })
             </div>
             <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                <button type="submit" class="btn btn-primary hvr-icon-fade">Confirm</button>
+                @Html.ActionLink("Create", "Index", "Trip", new { @class = "btn btn-primary" })
             </div>
         </div>
     </div>

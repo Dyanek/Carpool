@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage my trips";
 }
 
 <h2>Manage my trips</h2>
@@ -53,5 +53,5 @@ Here you will be able to see the trips you're in. You will be able to see each o
 </div>
 
 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-    <button type="submit" class="btn btn-primary hvr-icon-fade">Create a trip</button>
+    @Html.ActionLink("Create a trip", "CreateTrip", "Trip", new { @class = "btn btn-primary"})
 </div>
