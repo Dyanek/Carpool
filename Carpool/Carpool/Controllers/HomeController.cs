@@ -6,11 +6,11 @@ using System.Web.Mvc;
 
 namespace Carpool.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            return View();
+            return View(ConnectedUser);
         }
 
         public ActionResult About()

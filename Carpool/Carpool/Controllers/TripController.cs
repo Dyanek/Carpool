@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Carpool.Controllers
 {
-    public class TripController : Controller
+    public class TripController : BaseController
     {
         // GET: Trip
         public ActionResult Index()
@@ -15,6 +15,11 @@ namespace Carpool.Controllers
         }
 
         public ActionResult CreateTrip()
+        {
+            return View();
+        }
+
+        public ActionResult FindTrips()
         {
             return View();
         }

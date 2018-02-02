@@ -1,68 +1,74 @@
-﻿@{
+﻿@model Carpool.Models.User
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>If there is no user connected</h1>
+@if (Model == null)
+{
+    <div class="jumbotron">
+        <p>
+            Carpool is  a website permitting you to organize trips with your neighbours. This will permit you to pay less money for your trips.
+        </p>
+        <p>
+            Doing this have another effect, if you care about the environement, using this website will directly act on the environment by reducing the pollution created by every car user alone.
+            Don't hesitate to speak about this website to your neighbourhood, it's a win-win situation for everyone so why not?
+        </p>
+    </div>
+}
+else
+{
     <p class="lead">
-        Carpool is  a website permitting the users to organize trips with their neighbours to pay less money for their trip. Their actions
-        can reduce the pollution of their region.
+        Incoming trips near you
     </p>
-</div>
-
-<div class="jumbotron">
-    <h1>If the user is connected</h1>
-    <p class="lead">
-        Available trips near you
-    </p>
-</div>
 
 
-<div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px; margin-bottom: 1%">
-    <div class="col-sm-3">
-        <p>Trip to Morrisons</p>
-        <p>Destination: 13 Laca street</p>
-        <p>City: Glasgow</p>
+    <div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px; margin-bottom: 1%">
+        <div class="col-sm-3">
+            <p>Trip to Morrisons</p>
+            <p>Destination: 13 Laca street</p>
+            <p>City: Glasgow</p>
+        </div>
+
+        <div class="col-sm-3">
+            <p>Postal Code: GL1 3QP</p>
+            <p>Country: United-kindom</p>
+            <p>Number of persons: 3</p>
+
+        </div>
+
+        <div class="col-sm-3">
+            <p>Price per person: £1.25</p>
+            <p>Beginning: 14:30</p>
+            <p>Estimated duration: 1h30</p>
+        </div>
+
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
+        </div>
     </div>
 
-    <div class="col-sm-3">
-        <p>Postal Code: GL1 3QP</p>
-        <p>Country: United-kindom</p>
-        <p>Number of persons: 3</p>
-        
-    </div>
+    <div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px;">
+        <div class="col-sm-3">
+            <p>Trip to Morrisons</p>
+            <p>Destination: 13 Laca street</p>
+            <p>City: Paisley</p>
+        </div>
 
-    <div class="col-sm-3">
-        <p>Price per person: £1.25</p>
-        <p>Beginning: 14:30</p>
-        <p>Estimated duration: 1h30</p>
-    </div>
+        <div class="col-sm-3">
+            <p>Postal Code: PA1 3QP</p>
+            <p>Country: United-kindom</p>
+            <p>Number of persons: 4</p>
+        </div>
 
-    <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
-    </div>
-</div>
+        <div class="col-sm-3">
+            <p>Price per person: £2.50</p>
+            <p>Beginning: 09:45</p>
+            <p>Estimated duration: 2h00</p>
+        </div>
 
-<div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px;">
-    <div class="col-sm-3">
-        <p>Trip to Morrisons</p>
-        <p>Destination: 13 Laca street</p>
-        <p>City: Paisley</p>
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
+        </div>
     </div>
-
-    <div class="col-sm-3">
-        <p>Postal Code: PA1 3QP</p>
-        <p>Country: United-kindom</p>
-        <p>Number of persons: 4</p>       
-    </div>
-
-    <div class="col-sm-3">
-        <p>Price per person: £2.50</p>
-        <p>Beginning: 09:45</p>
-        <p>Estimated duration: 2h00</p>
-    </div>
-
-    <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
-    </div>
-</div>
+}

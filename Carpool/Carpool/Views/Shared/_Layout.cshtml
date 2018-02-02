@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model Carpool.Models.User
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,13 +21,20 @@
                 </button>
                 @Html.ActionLink("Carpool", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+
+
             <div class="navbar-collapse collapse">
+
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Manage my trips", "Index", "Trip")</li>
-                    <li>@Html.ActionLink("Manage my friends", "ManageFriends", "Account")</li>
-                    <li>@Html.ActionLink("Hey Mr. Bob", "Profile", "Account")</li>
-                    <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
+                    <li>@Html.ActionLink("Find trips", "FindTrips", "Trip")</li>
+                    @if (Model != null)
+                    {
+                        <li>@Html.ActionLink("Manage my trips", "Index", "Trip")</li>
+                        <li>@Html.ActionLink("Manage my friends", "ManageFriends", "Account")</li>
+                    }
                 </ul>
+
+                @Html.Action("_Login", "Shared")
             </div>
         </div>
     </div>
