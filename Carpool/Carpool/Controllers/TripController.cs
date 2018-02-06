@@ -9,19 +9,19 @@ namespace Carpool.Controllers
     public class TripController : BaseController
     {
         // GET: Trip
-        public ActionResult Index()
+        public ActionResult ManageTrips()
         {
-            return View();
+            return View(ConnectedUser);
         }
 
         public ActionResult CreateTrip()
         {
-            return View();
+            return View(ConnectedUser);
         }
 
         public ActionResult FindTrips()
         {
-            return View();
+            return View(ConnectedUser);
         }
     }
 }

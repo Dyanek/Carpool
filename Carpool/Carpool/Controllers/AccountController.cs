@@ -36,17 +36,17 @@ namespace Carpool.Controllers
 
         public ActionResult Profile()
         {
-            return View();
+            return View(ConnectedUser);
         }
 
         public ActionResult ManageFriends()
         {
-            return View();
+            return View(ConnectedUser);
         }
 
         public ActionResult FindFriend()
         {
-            return View();
+            return View(ConnectedUser);
         }
     }
 }

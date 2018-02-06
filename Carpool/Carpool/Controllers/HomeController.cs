@@ -10,7 +10,7 @@ namespace Carpool.Controllers
     {
         public ActionResult Index()
         {
-            return View(ConnectedUser);
+                return View(ConnectedUser);
         }
 
         public ActionResult About()

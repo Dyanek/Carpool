@@ -192,7 +192,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Trip\Index.cshtml" />
+    <Content Include="Views\Trip\ManageTrips.cshtml" />
     <Content Include="Views\Account\ManageFriends.cshtml" />
     <Content Include="Views\Account\_FindFriend.cshtml" />
     <Content Include="Views\Trip\CreateTrip.cshtml" />
