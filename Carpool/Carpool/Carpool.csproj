@@ -199,6 +199,7 @@
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Trip\FindTrips.cshtml" />
+    <Content Include="Views\Trip\_FoundTrips.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
