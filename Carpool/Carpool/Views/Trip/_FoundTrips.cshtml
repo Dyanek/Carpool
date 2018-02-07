@@ -1,4 +1,6 @@
-﻿<hr />
+﻿@model Carpool.Models.User
+
+<hr />
 
 <br />
 <br />
@@ -24,10 +26,12 @@
         <p>Beginning: 14:30</p>
         <p>Estimated duration: 1h30</p>
     </div>
-
-    <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
-    </div>
+    @if (Model != null)
+    {
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Join</button>
+        </div>
+    }
 </div>
 
 <div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px;">
@@ -49,7 +53,10 @@
         <p>Estimated duration: 2h00</p>
     </div>
 
-    <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Join</button>
-    </div>
+    @if (Model != null)
+    {
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Join</button>
+        </div>
+    }
 </div>

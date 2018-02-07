@@ -25,7 +25,7 @@ Here you will be able to see the trips you're in. You will be able to see each o
     </div>
 
     <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Leave</button>
+        <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Leave</button>
     </div>
 </div>
 
@@ -48,10 +48,20 @@ Here you will be able to see the trips you're in. You will be able to see each o
     </div>
 
     <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-        <button type="submit" class="btn btn-primary hvr-icon-fade">Leave</button>
+        <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Leave</button>
     </div>
 </div>
 
 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-    @Html.ActionLink("Create a trip", "CreateTrip", "Trip", new { @class = "btn btn-primary"})
+    
+</div>
+
+<div class="col-md-10">
+    <br />
+
+    <div class="form-group row text-center">
+        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+            @Html.ActionLink("Create a trip", "CreateTrip", "Trip", new { @class = "btn btn-primary" })
+        </div>
+    </div>
 </div>
