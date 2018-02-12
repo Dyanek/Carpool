@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="carpoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="address_add">
+          <Key>
+            <PropertyRef Name="add_id" />
+          </Key>
+          <Property Name="add_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="add_address_line_1" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="add_address_line_2" Type="varchar" MaxLength="250" />
+          <Property Name="add_postal_code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="add_latitude" Type="varchar" MaxLength="200" />
+          <Property Name="add_longitude" Type="varchar" MaxLength="200" />
+          <Property Name="add_cit_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="city_cit">
+          <Key>
+            <PropertyRef Name="cit_id" />
+          </Key>
+          <Property Name="cit_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cit_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="cit_cou_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="country_cou">
+          <Key>
+            <PropertyRef Name="cou_id" />
+          </Key>
+          <Property Name="cou_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cou_name" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="is_friend_ifr">
+          <Key>
+            <PropertyRef Name="ifr_id" />
+          </Key>
+          <Property Name="ifr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ifr_from_usr_id" Type="int" Nullable="false" />
+          <Property Name="ifr_to_usr_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="joins_joi">
+          <Key>
+            <PropertyRef Name="joi_id" />
+          </Key>
+          <Property Name="joi_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="joi_date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="joi_usr_id" Type="int" Nullable="false" />
+          <Property Name="joi_tri_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message_mes">
+          <Key>
+            <PropertyRef Name="mes_id" />
+          </Key>
+          <Property Name="mes_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mes_subject" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="mes_content" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="mes_is_answer" Type="bit" Nullable="false" />
+          <Property Name="mes_sender_usr_id" Type="int" Nullable="false" />
+          <Property Name="mes_receiver_usr_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="trip_tri">
+          <Key>
+            <PropertyRef Name="tri_id" />
+          </Key>
+          <Property Name="tri_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tri_number_of_places" Type="int" Nullable="false" />
+          <Property Name="tri_price" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="tri_is_routine" Type="bit" />
+          <Property Name="tri_period" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="tri_beginning" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="tri_closing" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="tri_duration" Type="int" Nullable="false" />
+          <Property Name="tri_add_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_usr">
+          <Key>
+            <PropertyRef Name="usr_id" />
+          </Key>
+          <Property Name="usr_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usr_user_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usr_password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usr_first_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usr_last_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usr_email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="usr_phone_number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usr_add_id" Type="int" />
+        </EntityType>
+        <Association Name="fk_address_city">
+          <End Role="city_cit" Type="Self.city_cit" Multiplicity="1" />
+          <End Role="address_add" Type="Self.address_add" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_cit">
+              <PropertyRef Name="cit_id" />
+            </Principal>
+            <Dependent Role="address_add">
+              <PropertyRef Name="add_cit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_city_country">
+          <End Role="country_cou" Type="Self.country_cou" Multiplicity="1" />
+          <End Role="city_cit" Type="Self.city_cit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country_cou">
+              <PropertyRef Name="cou_id" />
+            </Principal>
+            <Dependent Role="city_cit">
+              <PropertyRef Name="cit_cou_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_is_friend_user_from">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="is_friend_ifr" Type="Self.is_friend_ifr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="is_friend_ifr">
+              <PropertyRef Name="ifr_from_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_is_friend_user_to">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="is_friend_ifr" Type="Self.is_friend_ifr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="is_friend_ifr">
+              <PropertyRef Name="ifr_to_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_joins_trip">
+          <End Role="trip_tri" Type="Self.trip_tri" Multiplicity="1" />
+          <End Role="joins_joi" Type="Self.joins_joi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trip_tri">
+              <PropertyRef Name="tri_id" />
+            </Principal>
+            <Dependent Role="joins_joi">
+              <PropertyRef Name="joi_tri_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_joins_user">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="joins_joi" Type="Self.joins_joi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="joins_joi">
+              <PropertyRef Name="joi_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_message_user_sender">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="message_mes" Type="Self.message_mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="message_mes">
+              <PropertyRef Name="mes_sender_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_trip_address">
+          <End Role="address_add" Type="Self.address_add" Multiplicity="1" />
+          <End Role="trip_tri" Type="Self.trip_tri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address_add">
+              <PropertyRef Name="add_id" />
+            </Principal>
+            <Dependent Role="trip_tri">
+              <PropertyRef Name="tri_add_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_address">
+          <End Role="address_add" Type="Self.address_add" Multiplicity="0..1" />
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address_add">
+              <PropertyRef Name="add_id" />
+            </Principal>
+            <Dependent Role="user_usr">
+              <PropertyRef Name="usr_add_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fr_message_user_receiver">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="message_mes" Type="Self.message_mes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="message_mes">
+              <PropertyRef Name="mes_receiver_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="carpoolModelStoreContainer">
+          <EntitySet Name="address_add" EntityType="Self.address_add" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="city_cit" EntityType="Self.city_cit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="country_cou" EntityType="Self.country_cou" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="is_friend_ifr" EntityType="Self.is_friend_ifr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="joins_joi" EntityType="Self.joins_joi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message_mes" EntityType="Self.message_mes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="trip_tri" EntityType="Self.trip_tri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_usr" EntityType="Self.user_usr" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_address_city" Association="Self.fk_address_city">
+            <End Role="city_cit" EntitySet="city_cit" />
+            <End Role="address_add" EntitySet="address_add" />
+          </AssociationSet>
+          <AssociationSet Name="fk_city_country" Association="Self.fk_city_country">
+            <End Role="country_cou" EntitySet="country_cou" />
+            <End Role="city_cit" EntitySet="city_cit" />
+          </AssociationSet>
+          <AssociationSet Name="fk_is_friend_user_from" Association="Self.fk_is_friend_user_from">
+            <End Role="user_usr" EntitySet="user_usr" />
+            <End Role="is_friend_ifr" EntitySet="is_friend_ifr" />
+          </AssociationSet>
+          <AssociationSet Name="fk_is_friend_user_to" Association="Self.fk_is_friend_user_to">
+            <End Role="user_usr" EntitySet="user_usr" />
+            <End Role="is_friend_ifr" EntitySet="is_friend_ifr" />
+          </AssociationSet>
+          <AssociationSet Name="fk_joins_trip" Association="Self.fk_joins_trip">
+            <End Role="trip_tri" EntitySet="trip_tri" />
+            <End Role="joins_joi" EntitySet="joins_joi" />
+          </AssociationSet>
+          <AssociationSet Name="fk_joins_user" Association="Self.fk_joins_user">
+            <End Role="user_usr" EntitySet="user_usr" />
+            <End Role="joins_joi" EntitySet="joins_joi" />
+          </AssociationSet>
+          <AssociationSet Name="fk_message_user_sender" Association="Self.fk_message_user_sender">
+            <End Role="user_usr" EntitySet="user_usr" />
+            <End Role="message_mes" EntitySet="message_mes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_trip_address" Association="Self.fk_trip_address">
+            <End Role="address_add" EntitySet="address_add" />
+            <End Role="trip_tri" EntitySet="trip_tri" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_address" Association="Self.fk_user_address">
+            <End Role="address_add" EntitySet="address_add" />
+            <End Role="user_usr" EntitySet="user_usr" />
+          </AssociationSet>
+          <AssociationSet Name="fr_message_user_receiver" Association="Self.fr_message_user_receiver">
+            <End Role="user_usr" EntitySet="user_usr" />
+            <End Role="message_mes" EntitySet="message_mes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="carpoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="add_id" />
+          </Key>
+          <Property Name="add_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="add_address_line_1" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="add_address_line_2" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="add_postal_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="add_latitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="add_longitude" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="add_cit_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="city_cit" Relationship="Self.fk_address_city" FromRole="address_add" ToRole="city_cit" />
+          <NavigationProperty Name="trip_tri" Relationship="Self.fk_trip_address" FromRole="address_add" ToRole="trip_tri" />
+          <NavigationProperty Name="user_usr" Relationship="Self.fk_user_address" FromRole="address_add" ToRole="user_usr" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="cit_id" />
+          </Key>
+          <Property Name="cit_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cit_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cit_cou_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="address_add" Relationship="Self.fk_address_city" FromRole="city_cit" ToRole="address_add" />
+          <NavigationProperty Name="country_cou" Relationship="Self.fk_city_country" FromRole="city_cit" ToRole="country_cou" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="cou_id" />
+          </Key>
+          <Property Name="cou_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cou_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="city_cit" Relationship="Self.fk_city_country" FromRole="country_cou" ToRole="city_cit" />
+        </EntityType>
+        <EntityType Name="Friend">
+          <Key>
+            <PropertyRef Name="ifr_id" />
+          </Key>
+          <Property Name="ifr_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ifr_from_usr_id" Type="Int32" Nullable="false" />
+          <Property Name="ifr_to_usr_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_usr" Relationship="Self.fk_is_friend_user_from" FromRole="is_friend_ifr" ToRole="user_usr" />
+          <NavigationProperty Name="user_usr1" Relationship="Self.fk_is_friend_user_to" FromRole="is_friend_ifr" ToRole="user_usr" />
+        </EntityType>
+        <EntityType Name="Joins">
+          <Key>
+            <PropertyRef Name="joi_id" />
+          </Key>
+          <Property Name="joi_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="joi_date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="joi_usr_id" Type="Int32" Nullable="false" />
+          <Property Name="joi_tri_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="trip_tri" Relationship="Self.fk_joins_trip" FromRole="joins_joi" ToRole="trip_tri" />
+          <NavigationProperty Name="user_usr" Relationship="Self.fk_joins_user" FromRole="joins_joi" ToRole="user_usr" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="mes_id" />
+          </Key>
+          <Property Name="mes_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mes_subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mes_content" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mes_is_answer" Type="Boolean" Nullable="false" />
+          <Property Name="mes_sender_usr_id" Type="Int32" Nullable="false" />
+          <Property Name="mes_receiver_usr_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_usr" Relationship="Self.fk_message_user_sender" FromRole="message_mes" ToRole="user_usr" />
+          <NavigationProperty Name="user_usr1" Relationship="Self.fr_message_user_receiver" FromRole="message_mes" ToRole="user_usr" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="tri_id" />
+          </Key>
+          <Property Name="tri_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tri_number_of_places" Type="Int32" Nullable="false" />
+          <Property Name="tri_price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="tri_is_routine" Type="Boolean" />
+          <Property Name="tri_period" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="tri_beginning" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="tri_closing" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="tri_duration" Type="Int32" Nullable="false" />
+          <Property Name="tri_add_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="address_add" Relationship="Self.fk_trip_address" FromRole="trip_tri" ToRole="address_add" />
+          <NavigationProperty Name="joins_joi" Relationship="Self.fk_joins_trip" FromRole="trip_tri" ToRole="joins_joi" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usr_user_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usr_add_id" Type="Int32" />
+          <NavigationProperty Name="address_add" Relationship="Self.fk_user_address" FromRole="user_usr" ToRole="address_add" />
+          <NavigationProperty Name="is_friend_ifr" Relationship="Self.fk_is_friend_user_from" FromRole="user_usr" ToRole="is_friend_ifr" />
+          <NavigationProperty Name="is_friend_ifr1" Relationship="Self.fk_is_friend_user_to" FromRole="user_usr" ToRole="is_friend_ifr" />
+          <NavigationProperty Name="joins_joi" Relationship="Self.fk_joins_user" FromRole="user_usr" ToRole="joins_joi" />
+          <NavigationProperty Name="message_mes" Relationship="Self.fk_message_user_sender" FromRole="user_usr" ToRole="message_mes" />
+          <NavigationProperty Name="message_mes1" Relationship="Self.fr_message_user_receiver" FromRole="user_usr" ToRole="message_mes" />
+        </EntityType>
+        <Association Name="fk_address_city">
+          <End Role="city_cit" Type="carpoolModel.City" Multiplicity="1" />
+          <End Role="address_add" Type="carpoolModel.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_cit">
+              <PropertyRef Name="cit_id" />
+            </Principal>
+            <Dependent Role="address_add">
+              <PropertyRef Name="add_cit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_trip_address">
+          <End Role="address_add" Type="carpoolModel.Address" Multiplicity="1" />
+          <End Role="trip_tri" Type="carpoolModel.Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address_add">
+              <PropertyRef Name="add_id" />
+            </Principal>
+            <Dependent Role="trip_tri">
+              <PropertyRef Name="tri_add_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_address">
+          <End Role="address_add" Type="carpoolModel.Address" Multiplicity="0..1" />
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="address_add">
+              <PropertyRef Name="add_id" />
+            </Principal>
+            <Dependent Role="user_usr">
+              <PropertyRef Name="usr_add_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_city_country">
+          <End Role="country_cou" Type="carpoolModel.Country" Multiplicity="1" />
+          <End Role="city_cit" Type="carpoolModel.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="country_cou">
+              <PropertyRef Name="cou_id" />
+            </Principal>
+            <Dependent Role="city_cit">
+              <PropertyRef Name="cit_cou_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_is_friend_user_from">
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="1" />
+          <End Role="is_friend_ifr" Type="carpoolModel.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="is_friend_ifr">
+              <PropertyRef Name="ifr_from_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_is_friend_user_to">
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="1" />
+          <End Role="is_friend_ifr" Type="carpoolModel.Friend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="is_friend_ifr">
+              <PropertyRef Name="ifr_to_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_joins_trip">
+          <End Role="trip_tri" Type="carpoolModel.Trip" Multiplicity="1" />
+          <End Role="joins_joi" Type="carpoolModel.Joins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="trip_tri">
+              <PropertyRef Name="tri_id" />
+            </Principal>
+            <Dependent Role="joins_joi">
+              <PropertyRef Name="joi_tri_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_joins_user">
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="1" />
+          <End Role="joins_joi" Type="carpoolModel.Joins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="joins_joi">
+              <PropertyRef Name="joi_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_message_user_sender">
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="1" />
+          <End Role="message_mes" Type="carpoolModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="message_mes">
+              <PropertyRef Name="mes_sender_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fr_message_user_receiver">
+          <End Role="user_usr" Type="carpoolModel.User" Multiplicity="1" />
+          <End Role="message_mes" Type="carpoolModel.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="message_mes">
+              <PropertyRef Name="mes_receiver_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="carpoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="carpoolModel.Address" />
+          <EntitySet Name="Cities" EntityType="carpoolModel.City" />
+          <EntitySet Name="Countries" EntityType="carpoolModel.Country" />
+          <EntitySet Name="Friends1" EntityType="carpoolModel.Friend" />
+          <EntitySet Name="Joins" EntityType="carpoolModel.Joins" />
+          <EntitySet Name="Messages" EntityType="carpoolModel.Message" />
+          <EntitySet Name="Trips" EntityType="carpoolModel.Trip" />
+          <EntitySet Name="Users" EntityType="carpoolModel.User" />
+          <AssociationSet Name="fk_address_city" Association="Self.fk_address_city">
+            <End Role="city_cit" EntitySet="Cities" />
+            <End Role="address_add" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_trip_address" Association="Self.fk_trip_address">
+            <End Role="address_add" EntitySet="Addresses" />
+            <End Role="trip_tri" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_address" Association="Self.fk_user_address">
+            <End Role="address_add" EntitySet="Addresses" />
+            <End Role="user_usr" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="fk_city_country" Association="Self.fk_city_country">
+            <End Role="country_cou" EntitySet="Countries" />
+            <End Role="city_cit" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="fk_is_friend_user_from" Association="Self.fk_is_friend_user_from">
+            <End Role="user_usr" EntitySet="Users" />
+            <End Role="is_friend_ifr" EntitySet="Friends1" />
+          </AssociationSet>
+          <AssociationSet Name="fk_is_friend_user_to" Association="Self.fk_is_friend_user_to">
+            <End Role="user_usr" EntitySet="Users" />
+            <End Role="is_friend_ifr" EntitySet="Friends1" />
+          </AssociationSet>
+          <AssociationSet Name="fk_joins_trip" Association="Self.fk_joins_trip">
+            <End Role="trip_tri" EntitySet="Trips" />
+            <End Role="joins_joi" EntitySet="Joins" />
+          </AssociationSet>
+          <AssociationSet Name="fk_joins_user" Association="Self.fk_joins_user">
+            <End Role="user_usr" EntitySet="Users" />
+            <End Role="joins_joi" EntitySet="Joins" />
+          </AssociationSet>
+          <AssociationSet Name="fk_message_user_sender" Association="Self.fk_message_user_sender">
+            <End Role="user_usr" EntitySet="Users" />
+            <End Role="message_mes" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="fr_message_user_receiver" Association="Self.fr_message_user_receiver">
+            <End Role="user_usr" EntitySet="Users" />
+            <End Role="message_mes" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="carpoolModelStoreContainer" CdmEntityContainer="carpoolEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="carpoolModel.Address">
+              <MappingFragment StoreEntitySet="address_add">
+                <ScalarProperty Name="add_id" ColumnName="add_id" />
+                <ScalarProperty Name="add_address_line_1" ColumnName="add_address_line_1" />
+                <ScalarProperty Name="add_address_line_2" ColumnName="add_address_line_2" />
+                <ScalarProperty Name="add_postal_code" ColumnName="add_postal_code" />
+                <ScalarProperty Name="add_latitude" ColumnName="add_latitude" />
+                <ScalarProperty Name="add_longitude" ColumnName="add_longitude" />
+                <ScalarProperty Name="add_cit_id" ColumnName="add_cit_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="carpoolModel.City">
+              <MappingFragment StoreEntitySet="city_cit">
+                <ScalarProperty Name="cit_id" ColumnName="cit_id" />
+                <ScalarProperty Name="cit_name" ColumnName="cit_name" />
+                <ScalarProperty Name="cit_cou_id" ColumnName="cit_cou_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="carpoolModel.Country">
+              <MappingFragment StoreEntitySet="country_cou">
+                <ScalarProperty Name="cou_id" ColumnName="cou_id" />
+                <ScalarProperty Name="cou_name" ColumnName="cou_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friends1">
+            <EntityTypeMapping TypeName="carpoolModel.Friend">
+              <MappingFragment StoreEntitySet="is_friend_ifr">
+                <ScalarProperty Name="ifr_id" ColumnName="ifr_id" />
+                <ScalarProperty Name="ifr_from_usr_id" ColumnName="ifr_from_usr_id" />
+                <ScalarProperty Name="ifr_to_usr_id" ColumnName="ifr_to_usr_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Joins">
+            <EntityTypeMapping TypeName="carpoolModel.Joins">
+              <MappingFragment StoreEntitySet="joins_joi">
+                <ScalarProperty Name="joi_id" ColumnName="joi_id" />
+                <ScalarProperty Name="joi_date" ColumnName="joi_date" />
+                <ScalarProperty Name="joi_usr_id" ColumnName="joi_usr_id" />
+                <ScalarProperty Name="joi_tri_id" ColumnName="joi_tri_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="carpoolModel.Message">
+              <MappingFragment StoreEntitySet="message_mes">
+                <ScalarProperty Name="mes_id" ColumnName="mes_id" />
+                <ScalarProperty Name="mes_subject" ColumnName="mes_subject" />
+                <ScalarProperty Name="mes_content" ColumnName="mes_content" />
+                <ScalarProperty Name="mes_is_answer" ColumnName="mes_is_answer" />
+                <ScalarProperty Name="mes_sender_usr_id" ColumnName="mes_sender_usr_id" />
+                <ScalarProperty Name="mes_receiver_usr_id" ColumnName="mes_receiver_usr_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trips">
+            <EntityTypeMapping TypeName="carpoolModel.Trip">
+              <MappingFragment StoreEntitySet="trip_tri">
+                <ScalarProperty Name="tri_id" ColumnName="tri_id" />
+                <ScalarProperty Name="tri_number_of_places" ColumnName="tri_number_of_places" />
+                <ScalarProperty Name="tri_price" ColumnName="tri_price" />
+                <ScalarProperty Name="tri_is_routine" ColumnName="tri_is_routine" />
+                <ScalarProperty Name="tri_period" ColumnName="tri_period" />
+                <ScalarProperty Name="tri_beginning" ColumnName="tri_beginning" />
+                <ScalarProperty Name="tri_closing" ColumnName="tri_closing" />
+                <ScalarProperty Name="tri_duration" ColumnName="tri_duration" />
+                <ScalarProperty Name="tri_add_id" ColumnName="tri_add_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="carpoolModel.User">
+              <MappingFragment StoreEntitySet="user_usr">
+                <ScalarProperty Name="UserId" ColumnName="usr_id" />
+                <ScalarProperty Name="usr_user_name" ColumnName="usr_user_name" />
+                <ScalarProperty Name="usr_password" ColumnName="usr_password" />
+                <ScalarProperty Name="usr_first_name" ColumnName="usr_first_name" />
+                <ScalarProperty Name="usr_last_name" ColumnName="usr_last_name" />
+                <ScalarProperty Name="usr_email" ColumnName="usr_email" />
+                <ScalarProperty Name="usr_phone_number" ColumnName="usr_phone_number" />
+                <ScalarProperty Name="usr_add_id" ColumnName="usr_add_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e4c4aed8591a4630977b47dd0ecb010e" Name="Diagram1">
+        <EntityTypeShape EntityType="carpoolModel.Address" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.City" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.Country" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.Friend" Width="1.5" PointX="9.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.Joins" Width="1.5" PointX="9.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.Message" Width="1.5" PointX="9.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.Trip" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="carpoolModel.User" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="carpoolModel.fk_address_city" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_trip_address" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_user_address" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_city_country" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_is_friend_user_from" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_is_friend_user_to" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_joins_trip" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_joins_user" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_message_user_sender" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fr_message_user_receiver" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
