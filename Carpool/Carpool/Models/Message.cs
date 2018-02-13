@@ -14,14 +14,14 @@ namespace Carpool.Models
     
     public partial class Message
     {
-        public int mes_id { get; set; }
-        public string mes_subject { get; set; }
-        public string mes_content { get; set; }
-        public bool mes_is_answer { get; set; }
-        public int mes_sender_usr_id { get; set; }
-        public int mes_receiver_usr_id { get; set; }
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public bool IsAnswer { get; set; }
+        public int SenderUserId { get; set; }
+        public int ReceiverUserId { get; set; }
     
-        public virtual User user_usr { get; set; }
-        public virtual User user_usr1 { get; set; }
+        public virtual User SenderUser { get; set; }
+        public virtual User ReceiverUser { get; set; }
     }
 }

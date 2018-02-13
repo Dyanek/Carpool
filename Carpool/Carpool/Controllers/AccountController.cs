@@ -34,6 +34,21 @@ namespace Carpool.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult CreateAccount()
+        {
+            ViewBag.Address = new SelectList(DbContext.Addresses.ToList(), "Id", "Line1");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAccount([Bind(Include ="UserName,Password,FirstName,LastName,Email,PhoneNumber")] User pUser)
+        {
+            return RedirectToAction("LogIn");
+        }
+
         public ActionResult Profile()
         {
             return View(ConnectedUser);

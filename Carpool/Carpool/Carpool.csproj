@@ -197,6 +197,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>CarpoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +263,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Trip\FindTrips.cshtml" />
     <Content Include="Views\Trip\_FoundTrips.cshtml" />
+    <Content Include="Views\Account\CreateAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

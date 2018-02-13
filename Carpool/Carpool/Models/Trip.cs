@@ -17,21 +17,21 @@ namespace Carpool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Trip()
         {
-            this.joins_joi = new HashSet<Joins>();
+            this.Joins = new HashSet<Joins>();
         }
     
-        public int tri_id { get; set; }
-        public int tri_number_of_places { get; set; }
-        public decimal tri_price { get; set; }
-        public Nullable<bool> tri_is_routine { get; set; }
-        public decimal tri_period { get; set; }
-        public System.DateTime tri_beginning { get; set; }
-        public System.DateTime tri_closing { get; set; }
-        public int tri_duration { get; set; }
-        public int tri_add_id { get; set; }
+        public int Id { get; set; }
+        public int NumberOfPlaces { get; set; }
+        public decimal Price { get; set; }
+        public Nullable<bool> IsRoutine { get; set; }
+        public decimal Period { get; set; }
+        public System.DateTime Beginning { get; set; }
+        public System.DateTime Closing { get; set; }
+        public int Duration { get; set; }
+        public int AddressId { get; set; }
     
-        public virtual Address address_add { get; set; }
+        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joins> joins_joi { get; set; }
+        public virtual ICollection<Joins> Joins { get; set; }
     }
 }

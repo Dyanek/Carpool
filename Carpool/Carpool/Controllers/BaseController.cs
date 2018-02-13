@@ -12,7 +12,7 @@ namespace Carpool.Controllers
         private User _connectedUser = null;
 
         /// <summary>Gets the data context connected to the database.</summary>
-        //public PRJ06Entities2 DbContext { get; private set; }
+        public carpoolEntities DbContext { get; private set; }
 
 
         /// <summary>Obtient ou définit l'identifiant de l'utilisateur connecté.</summary>
@@ -24,8 +24,8 @@ namespace Carpool.Controllers
                 {
                     if (Session["Id"] != null)
                     {
-                        //_connectedUser = DbContext.WebUsers.Find((int)Session["Id"]);
-                        _connectedUser = new User("Razowski", "Bob");
+                        _connectedUser = DbContext.Users.Find((int)Session["Id"]);
+                        _connectedUser = new User();
                     }
                 }
 
@@ -41,10 +41,10 @@ namespace Carpool.Controllers
                 Session["Error"] = null;
             }
 
-            //if (DbContext == null)
-            //{
-            //    DbContext = new PRJ06Entities2();
-            //}
+            if (DbContext == null)
+            {
+                DbContext = new carpoolEntities();
+            }
         }
 
         /// <summary>
@@ -52,9 +52,8 @@ namespace Carpool.Controllers
         /// </summary>
         void IDisposable.Dispose()
         {
-            
-            //if (DbContext != null)
-            //    DbContext = null;
+            if (DbContext != null)
+                DbContext = null;
         }
     }
 }

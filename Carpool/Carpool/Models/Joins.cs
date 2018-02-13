@@ -14,12 +14,12 @@ namespace Carpool.Models
     
     public partial class Joins
     {
-        public int joi_id { get; set; }
-        public System.DateTime joi_date { get; set; }
-        public int joi_usr_id { get; set; }
-        public int joi_tri_id { get; set; }
+        public int Id { get; set; }
+        public System.DateTime Date { get; set; }
+        public int UserId { get; set; }
+        public int TripId { get; set; }
     
-        public virtual Trip trip_tri { get; set; }
-        public virtual User user_usr { get; set; }
+        public virtual Trip Trip { get; set; }
+        public virtual User User { get; set; }
     }
 }

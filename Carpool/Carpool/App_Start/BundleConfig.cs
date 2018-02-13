@@ -12,7 +12,8 @@ namespace Carpool
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate.min.js",
+                        "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));

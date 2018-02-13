@@ -17,32 +17,32 @@ namespace Carpool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.is_friend_ifr = new HashSet<Friend>();
-            this.is_friend_ifr1 = new HashSet<Friend>();
-            this.joins_joi = new HashSet<Joins>();
-            this.message_mes = new HashSet<Message>();
-            this.message_mes1 = new HashSet<Message>();
+            this.FriendWith = new HashSet<Friend>();
+            this.FriendFrom = new HashSet<Friend>();
+            this.Joins = new HashSet<Joins>();
+            this.SentMessages = new HashSet<Message>();
+            this.ReceivedMessages = new HashSet<Message>();
         }
     
-        public int UserId { get; set; }
-        public string usr_user_name { get; set; }
-        public string usr_password { get; set; }
-        public string usr_first_name { get; set; }
-        public string usr_last_name { get; set; }
-        public string usr_email { get; set; }
-        public string usr_phone_number { get; set; }
-        public Nullable<int> usr_add_id { get; set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public Nullable<int> AddressId { get; set; }
     
-        public virtual Address address_add { get; set; }
+        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Friend> is_friend_ifr { get; set; }
+        public virtual ICollection<Friend> FriendWith { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Friend> is_friend_ifr1 { get; set; }
+        public virtual ICollection<Friend> FriendFrom { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Joins> joins_joi { get; set; }
+        public virtual ICollection<Joins> Joins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> message_mes { get; set; }
+        public virtual ICollection<Message> SentMessages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Message> message_mes1 { get; set; }
+        public virtual ICollection<Message> ReceivedMessages { get; set; }
     }
 }

@@ -17,15 +17,15 @@ namespace Carpool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public City()
         {
-            this.address_add = new HashSet<Address>();
+            this.Addresses = new HashSet<Address>();
         }
     
-        public int cit_id { get; set; }
-        public string cit_name { get; set; }
-        public int cit_cou_id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int CountryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> address_add { get; set; }
-        public virtual Country country_cou { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

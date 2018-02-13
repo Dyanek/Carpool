@@ -17,22 +17,22 @@ namespace Carpool.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Address()
         {
-            this.trip_tri = new HashSet<Trip>();
-            this.user_usr = new HashSet<User>();
+            this.Trips = new HashSet<Trip>();
+            this.Users = new HashSet<User>();
         }
     
-        public int add_id { get; set; }
-        public string add_address_line_1 { get; set; }
-        public string add_address_line_2 { get; set; }
-        public string add_postal_code { get; set; }
-        public string add_latitude { get; set; }
-        public string add_longitude { get; set; }
-        public int add_cit_id { get; set; }
+        public int Id { get; set; }
+        public string Line1 { get; set; }
+        public string Line2 { get; set; }
+        public string PostalCode { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public int CityId { get; set; }
     
-        public virtual City city_cit { get; set; }
+        public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Trip> trip_tri { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> user_usr { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

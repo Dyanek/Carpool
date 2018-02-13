@@ -14,11 +14,11 @@ namespace Carpool.Models
     
     public partial class Friend
     {
-        public int ifr_id { get; set; }
-        public int ifr_from_usr_id { get; set; }
-        public int ifr_to_usr_id { get; set; }
+        public int Id { get; set; }
+        public int FromUserId { get; set; }
+        public int ToUserId { get; set; }
     
-        public virtual User user_usr { get; set; }
-        public virtual User user_usr1 { get; set; }
+        public virtual User FromUser { get; set; }
+        public virtual User ToUser { get; set; }
     }
 }
