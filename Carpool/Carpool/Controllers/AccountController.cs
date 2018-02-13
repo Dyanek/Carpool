@@ -37,7 +37,12 @@ namespace Carpool.Controllers
         [HttpGet]
         public ActionResult CreateAccount()
         {
-            ViewBag.Address = new SelectList(DbContext.Addresses.ToList(), "Id", "Line1");
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (Country country in DbContext.Countries)
+                items.Add(new SelectListItem { Text = country.Name, Value = country.Id.ToString() });
+
+            ViewBag.CountriesList = items;
 
             return View();
         }

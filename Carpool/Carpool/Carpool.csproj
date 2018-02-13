@@ -197,6 +197,9 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>CarpoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\_Address.cs" />
+    <Compile Include="Models\_City.cs" />
+    <Compile Include="Models\_Country.cs" />
     <Compile Include="Models\_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

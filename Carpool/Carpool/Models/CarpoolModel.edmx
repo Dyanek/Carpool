@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="carpoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="carpoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="address_add">
           <Key>
             <PropertyRef Name="add_id" />
@@ -85,7 +85,7 @@
           <Property Name="usr_last_name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="usr_email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="usr_phone_number" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="usr_add_id" Type="int" />
+          <Property Name="usr_add_id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="fk_address_city">
           <End Role="city_cit" Type="Self.city_cit" Multiplicity="1" />
@@ -184,7 +184,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_user_address">
-          <End Role="address_add" Type="Self.address_add" Multiplicity="0..1" />
+          <End Role="address_add" Type="Self.address_add" Multiplicity="1" />
           <End Role="user_usr" Type="Self.user_usr" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="address_add">
@@ -257,8 +257,7 @@
             <End Role="message_mes" EntitySet="message_mes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="carpoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -356,7 +355,7 @@
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AddressId" Type="Int32" />
+          <Property Name="AddressId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.fk_user_address" FromRole="user_usr" ToRole="address_add" />
           <NavigationProperty Name="FriendWith" Relationship="Self.fk_is_friend_user_from" FromRole="user_usr" ToRole="is_friend_ifr" />
           <NavigationProperty Name="FriendFrom" Relationship="Self.fk_is_friend_user_to" FromRole="user_usr" ToRole="is_friend_ifr" />
@@ -389,7 +388,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_user_address">
-          <End Role="address_add" Type="carpoolModel.Address" Multiplicity="0..1" />
+          <End Role="address_add" Type="carpoolModel.Address" Multiplicity="1" />
           <End Role="user_usr" Type="carpoolModel.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="address_add">
