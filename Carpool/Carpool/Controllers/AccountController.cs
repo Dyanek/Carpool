@@ -42,16 +42,32 @@ namespace Carpool.Controllers
             foreach (Country country in DbContext.Countries)
                 items.Add(new SelectListItem { Text = country.Name, Value = country.Id.ToString() });
 
-            ViewBag.CountriesList = items;
+            ViewBag.CountriesList = GetCountriesList();
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAccount([Bind(Include ="UserName,Password,FirstName,LastName,Email,PhoneNumber")] User pUser)
+        public ActionResult CreateAccount(User pUser)
         {
-            return RedirectToAction("LogIn");
+            List<string> errorsList = new List<string>();
+
+            //if(test compulsory fields empty)
+
+            if (errorsList.Any())
+            {
+                Session["Error"] = ConcatenateErrors(errorsList);
+
+                ViewBag.CountriesList = GetCountriesList();
+
+                return View();
+            }
+            else
+            {
+                Session["Success"] = "You have succesfully created an account";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult Profile()

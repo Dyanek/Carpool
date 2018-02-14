@@ -33,3 +33,7 @@ footer {
 .button-trip {
     margin-top: 35%;
 }
+
+.required:after {
+    content: "*";
+}

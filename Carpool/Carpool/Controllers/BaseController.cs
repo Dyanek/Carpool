@@ -37,14 +37,12 @@ namespace Carpool.Controllers
         {
             if (Session != null)
             {
-                Session["Success"] = null;
                 Session["Error"] = null;
+                Session["Success"] = null;
             }
 
             if (DbContext == null)
-            {
                 DbContext = new carpoolEntities();
-            }
         }
 
         /// <summary>
@@ -54,6 +52,26 @@ namespace Carpool.Controllers
         {
             if (DbContext != null)
                 DbContext = null;
+        }
+
+        public dynamic GetCountriesList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (Country country in DbContext.Countries)
+                items.Add(new SelectListItem { Text = country.Name, Value = country.Id.ToString() });
+
+            return items;
+        }
+
+        public string ConcatenateErrors(List<string> errorsList)
+        {
+            string str = "";
+
+            foreach (string error in errorsList)
+                str += error + " | ";
+
+            return str.Substring(0, str.Length - 3);
         }
     }
 }

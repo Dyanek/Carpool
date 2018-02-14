@@ -182,6 +182,7 @@
     <Compile Include="Models\Country.cs">
       <DependentUpon>CarpoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Encrypt.cs" />
     <Compile Include="Models\Friend.cs">
       <DependentUpon>CarpoolModel.tt</DependentUpon>
     </Compile>
