@@ -53,7 +53,9 @@ namespace Carpool.Controllers
         {
             List<string> errorsList = new List<string>();
 
-            //if(test compulsory fields empty)
+            if (pUser.UserName == null || pUser.FirstName == null || pUser.LastName == null || pUser.Password == null)
+                //Create check password 2 times
+                errorsList.Add("One compulsory field or more are empty.");
 
             if (errorsList.Any())
             {
