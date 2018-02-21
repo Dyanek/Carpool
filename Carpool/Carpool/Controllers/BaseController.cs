@@ -23,10 +23,7 @@ namespace Carpool.Controllers
                 if (_connectedUser == null)
                 {
                     if (Session["Id"] != null)
-                    {
                         _connectedUser = DbContext.Users.Find((int)Session["Id"]);
-                        _connectedUser = new User();
-                    }
                 }
 
                 return _connectedUser;
@@ -35,12 +32,6 @@ namespace Carpool.Controllers
 
         public BaseController()
         {
-            if (Session != null)
-            {
-                Session["Error"] = null;
-                Session["Success"] = null;
-            }
-
             if (DbContext == null)
                 DbContext = new carpoolEntities();
         }
@@ -54,16 +45,6 @@ namespace Carpool.Controllers
                 DbContext = null;
         }
 
-        public dynamic GetCountriesList()
-        {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            foreach (Country country in DbContext.Countries)
-                items.Add(new SelectListItem { Text = country.Name, Value = country.Id.ToString() });
-
-            return items;
-        }
-
         public string ConcatenateErrors(List<string> errorsList)
         {
             string str = "";
@@ -72,6 +53,41 @@ namespace Carpool.Controllers
                 str += error + " | ";
 
             return str.Substring(0, str.Length - 3);
+        }
+
+        public City CheckCity(string cityName, int countryId)
+        {
+            if (!DbContext.Cities.Any(x => x.Name == cityName && x.CountryId == countryId))
+            {
+                City newCity = new City {
+                    Name = cityName,
+                    CountryId = countryId
+                };
+
+                DbContext.Cities.Add(newCity);
+                DbContext.SaveChanges();
+            }
+
+            return DbContext.Cities.FirstOrDefault(x => x.Name == cityName && x.CountryId == countryId);
+        }
+
+        public Address CheckAddress(Address address)
+        {
+            if (!DbContext.Addresses.Any(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id))
+            {
+                Address newAddress = new Address
+                {
+                    Line1 = address.Line1,
+                    Line2 = address.Line2,
+                    PostalCode = address.PostalCode,
+                    CityId = address.City.Id
+                };
+
+                DbContext.Addresses.Add(newAddress);
+                DbContext.SaveChanges();
+            }
+
+            return DbContext.Addresses.FirstOrDefault(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id);
         }
     }
 }

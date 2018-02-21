@@ -12,20 +12,32 @@ namespace Carpool.Controllers
         [HttpGet]
         public ActionResult LogIn()
         {
-            if (TempData["Error"] != null)
-                Session["Error"] = TempData["Error"];
-            else
-                Session["Error"] = null;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogIn(string Email, string Password)
+        public ActionResult LogIn(User pUser, bool? encryptedPassword)
         {
-            Session["Id"] = 1;
+            string password;
 
-            return RedirectToAction("Index", "Home");
+            if (encryptedPassword == true)
+                password = pUser.Password;
+            else
+                password = Encrypt.EncryptValue(pUser.Password);
+
+            User user = DbContext.Users.FirstOrDefault(x => x.UserName == pUser.UserName && x.Password == password);
+
+            if (user != null)
+            {
+                Session["Id"] = user.Id;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["Error"] = "No user found with this User name / Password combination";
+                return View();
+            }           
         }
 
         public ActionResult LogOut()
@@ -37,12 +49,7 @@ namespace Carpool.Controllers
         [HttpGet]
         public ActionResult CreateAccount()
         {
-            List<SelectListItem> items = new List<SelectListItem>();
-
-            foreach (Country country in DbContext.Countries)
-                items.Add(new SelectListItem { Text = country.Name, Value = country.Id.ToString() });
-
-            ViewBag.CountriesList = GetCountriesList();
+            ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
 
             return View();
         }
@@ -53,26 +60,40 @@ namespace Carpool.Controllers
         {
             List<string> errorsList = new List<string>();
 
-            if (pUser.UserName == null || pUser.FirstName == null || pUser.LastName == null || pUser.Password == null)
-                
+            if (pUser.UserName == null || pUser.Password == null || pUser.FirstName == null || pUser.LastName == null || pUser.Email == null || pUser.PhoneNumber == null || pUser.Address.Line1 == null || pUser.Address.PostalCode == null || pUser.Address.City.Name == null)
                 errorsList.Add("One compulsory field or more are empty.");
+
+            if (DbContext.Users.Any(x => x.UserName == pUser.UserName))
+                errorsList.Add("This user name is already used");
+
+            if (DbContext.Users.Any(x => x.Email == pUser.Email))
+                errorsList.Add("This email address is already used");
 
             if (errorsList.Any())
             {
-                Session["Error"] = ConcatenateErrors(errorsList);
+                TempData["Error"] = ConcatenateErrors(errorsList);
 
-                ViewBag.CountriesList = GetCountriesList();
+                ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
 
                 return View();
             }
             else
             {
-                Session["Success"] = "You have succesfully created an account";
-                return RedirectToAction("Index", "Home");
+                pUser.Address.City = CheckCity(pUser.Address.City.Name, pUser.Address.City.Country.Id);
+
+                pUser.Address = CheckAddress(pUser.Address);
+
+                pUser.Password = Encrypt.EncryptValue(pUser.Password);
+
+                DbContext.Users.Add(pUser);
+                DbContext.SaveChanges();
+
+                TempData["Success"] = "You have succesfully created an account";
+                return RedirectToAction("LogIn", "Account", new { userName = pUser.UserName, password = pUser.Password, encryptedPassword = true });
             }
         }
 
-        public ActionResult Profile()
+        public ActionResult UserProfile()
         {
             return View(ConnectedUser);
         }

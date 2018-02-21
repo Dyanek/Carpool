@@ -26,7 +26,7 @@ namespace Carpool.Models
             [Required(ErrorMessage = "Please enter your last name")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Please enter a valid email address")]
             public string Email { get; set; }
 
             [Display(Name = "Phone number")]

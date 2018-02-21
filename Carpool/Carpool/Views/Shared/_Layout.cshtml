@@ -40,23 +40,23 @@
     </div>
     <div class="container body-content">
 
-        @if (Session["Error"] != null)
+        @if (TempData["Error"] != null)
         {
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error</span>
-                @Session["Error"]
+                @TempData["Error"]
             </div>
         }
 
-        @if (Session["Success"] != null)
+        @if (TempData["Success"] != null)
         {
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error</span>
-                <strong>Well done!</strong> @Session["Success"]
+                <strong>Well done!</strong> @TempData["Success"]
             </div>
         }
 
