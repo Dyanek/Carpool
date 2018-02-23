@@ -96,16 +96,25 @@ namespace Carpool.Controllers
 
         public ActionResult UserProfile()
         {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
             return View(ConnectedUser);
         }
 
         public ActionResult ManageFriends()
         {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
             return View(ConnectedUser);
         }
 
         public ActionResult FindFriend()
         {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
             return View(ConnectedUser);
         }
     }

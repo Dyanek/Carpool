@@ -45,6 +45,17 @@ namespace Carpool.Controllers
                 DbContext = null;
         }
 
+        public bool UserIsConnected()
+        {
+            if (ConnectedUser == null)
+            {
+                TempData["Error"] = "You need to be connected to have access to this page";
+                return false;
+            }
+            else
+                return true;
+        }
+
         public string ConcatenateErrors(List<string> errorsList)
         {
             string str = "";
@@ -59,7 +70,8 @@ namespace Carpool.Controllers
         {
             if (!DbContext.Cities.Any(x => x.Name == cityName && x.CountryId == countryId))
             {
-                City newCity = new City {
+                City newCity = new City
+                {
                     Name = cityName,
                     CountryId = countryId
                 };

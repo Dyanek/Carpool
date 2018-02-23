@@ -16,10 +16,14 @@ namespace Carpool.Models
             public int NumberOfPlaces { get; set; }
 
             [Display(Name = "Beginning date")]
-            [Required(ErrorMessage = "The date must be at the format dd/MM/yyyy hh:mm")]
-            [DataType(DataType.DateTime)]
-            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+            [Required(ErrorMessage = "You must enter a valid date, the format is MM/dd/yyyy hh:mm")]
+            [RegularExpression(@"^[0-1]\d\/[0-3]\d\/[2][0]\d{2}\s[0-2]\d:[0-5]\d$", ErrorMessage = "Date must be in format MM/dd/yyyy hh:mm")]
             public DateTime Beginning { get; set; }
+
+            [Display(Name = "Closing date")]
+            [Required(ErrorMessage = "You must enter a valid date, the format is MM/dd/yyyy hh:mm")]
+            [RegularExpression(@"^[0-1]\d\/[0-3]\d\/[2][0]\d{2}\s[0-2]\d:[0-5]\d$", ErrorMessage = "Date must be in format MM/dd/yyyy hh:mm")]
+            public DateTime Closing { get; set; }
         }
     }
 }

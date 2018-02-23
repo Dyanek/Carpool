@@ -11,16 +11,23 @@ namespace Carpool.Controllers
     {
         public ActionResult ManageTrips()
         {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
         [HttpGet]
         public ActionResult CreateTrip()
         {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateTrip(Trip pTrip)
         {
             pTrip.IsRoutine = false;
