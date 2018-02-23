@@ -23,8 +23,8 @@ namespace Carpool.Models
         public int Id { get; set; }
         public int NumberOfPlaces { get; set; }
         public decimal Price { get; set; }
-        public Nullable<bool> IsRoutine { get; set; }
-        public decimal Period { get; set; }
+        public bool IsRoutine { get; set; }
+        public Nullable<decimal> Period { get; set; }
         public System.DateTime Beginning { get; set; }
         public System.DateTime Closing { get; set; }
         public int Duration { get; set; }

@@ -67,8 +67,8 @@
           <Property Name="tri_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tri_number_of_places" Type="int" Nullable="false" />
           <Property Name="tri_price" Type="numeric" Precision="5" Scale="2" Nullable="false" />
-          <Property Name="tri_is_routine" Type="bit" />
-          <Property Name="tri_period" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="tri_is_routine" Type="bit" Nullable="false" />
+          <Property Name="tri_period" Type="numeric" Precision="3" Scale="2" />
           <Property Name="tri_beginning" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="tri_closing" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="tri_duration" Type="int" Nullable="false" />
@@ -335,8 +335,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NumberOfPlaces" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
-          <Property Name="IsRoutine" Type="Boolean" />
-          <Property Name="Period" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="IsRoutine" Type="Boolean" Nullable="false" />
+          <Property Name="Period" Type="Decimal" Precision="3" Scale="2" />
           <Property Name="Beginning" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Closing" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Duration" Type="Int32" Nullable="false" />

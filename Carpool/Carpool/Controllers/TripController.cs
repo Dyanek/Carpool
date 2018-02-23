@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Carpool.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,20 +9,28 @@ namespace Carpool.Controllers
 {
     public class TripController : BaseController
     {
-        // GET: Trip
         public ActionResult ManageTrips()
         {
-            return View(ConnectedUser);
+            return View();
         }
 
+        [HttpGet]
         public ActionResult CreateTrip()
         {
-            return View(ConnectedUser);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTrip(Trip pTrip)
+        {
+            pTrip.IsRoutine = false;
+
+            return RedirectToAction("ManageTrips");
         }
 
         public ActionResult FindTrips()
         {
-            return View(ConnectedUser);
+            return View();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Carpool.Controllers
             {
                 TempData["Error"] = "No user found with this User name / Password combination";
                 return View();
-            }           
+            }
         }
 
         public ActionResult LogOut()
@@ -88,8 +88,9 @@ namespace Carpool.Controllers
                 DbContext.Users.Add(pUser);
                 DbContext.SaveChanges();
 
+
                 TempData["Success"] = "You have succesfully created an account";
-                return RedirectToAction("LogIn", "Account", new { userName = pUser.UserName, password = pUser.Password, encryptedPassword = true });
+                return LogIn(pUser, true);
             }
         }
 
