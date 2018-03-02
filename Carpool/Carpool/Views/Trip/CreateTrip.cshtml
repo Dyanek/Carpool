@@ -8,6 +8,15 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+</script>
+
 <h2>Create a trip</h2>
 
 @using (Html.BeginForm())
@@ -17,50 +26,89 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-                @Html.LabelFor(model => model.NumberOfPlaces, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.NumberOfPlaces, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.NumberOfPlaces, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NumberOfPlaces, new { htmlAttributes = new { @class = "form-control", @placeholder = "Not including you" } })
                 @Html.ValidationMessageFor(model => model.NumberOfPlaces, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBox("price", "", new { htmlAttributes = new { @class = "form-control", @placeholder = "The price for the trip" } })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Period, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Beginning, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Period, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Period, "", new { @class = "text-danger" })
+                @*@Html.DropDownList("begDay", (SelectList)ViewBag.Days, "Day", new { @class = "form-control date" })
+                @Html.DropDownList("begMonth", (SelectList)ViewBag.Months, "Month", new { @class = "form-control date" })
+                @Html.DropDownList("begYear", (SelectList)ViewBag.Years, "Month", new { @class = "form-control date" })
+                @Html.DropDownList("begHour", (SelectList)ViewBag.Hours, "Hour", new { @class = "form-control date" })
+                @Html.DropDownList("begMin", (SelectList)ViewBag.Minutes, "Minutes", new { @class = "form-control date" })*@
+                @Html.TextBox("pBeginning", Convert.ToDateTime(Model.Beginning).ToString("dd/MM/yyyy"), new { @id = "pEventDateStart", @class = "form-control datepicker" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Beginning, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Closing, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Beginning, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Beginning, "", new { @class = "text-danger" })
+                @Html.DropDownList("closeDay", (SelectList)ViewBag.Days, "Day", new { @class = "form-control date" })
+                @Html.DropDownList("closeMonth", (SelectList)ViewBag.Months, "Month", new { @class = "form-control date" })
+                @Html.DropDownList("closeYear", (SelectList)ViewBag.Years, "Month", new { @class = "form-control date" })
+                @Html.DropDownList("closeHour", (SelectList)ViewBag.Hours, "Hour", new { @class = "form-control date" })
+                @Html.DropDownList("closeMin", (SelectList)ViewBag.Minutes, "Minutes", new { @class = "form-control date" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Closing, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2 required" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Closing, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Closing, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", @placeholder = "Time on the spot in minutes" } })
                 @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.Line1, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.Line1, new { htmlAttributes = new { @class = "form-control", @placeholder = "The first line of the address" } })
+                @Html.ValidationMessageFor(model => model.Address.Line1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.Line2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.Line2, new { htmlAttributes = new { @class = "form-control", @placeholder = "The second line of the address, if necessary" } })
+                @Html.ValidationMessageFor(model => model.Address.Line2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.PostalCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "The postal code of the address" } })
+                @Html.ValidationMessageFor(model => model.Address.PostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.City.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.City.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "The nearest city the address is from" } })
+                @Html.ValidationMessageFor(model => model.Address.City.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.City.Country.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Address.City.Country.Id, (SelectList)ViewBag.CountriesList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address.City.Country, "", new { @class = "text-danger" })
             </div>
         </div>
 

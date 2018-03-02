@@ -37,3 +37,10 @@ footer {
 .required:after {
     content: "*";
 }
+
+.date {
+    float: left;
+    margin-right: 4px;
+    padding: 0;
+    width: auto;
+}
