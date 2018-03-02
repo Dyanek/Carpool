@@ -85,19 +85,16 @@ namespace Carpool.Controllers
 
         public Address CheckAddress(Address address)
         {
-            if (!DbContext.Addresses.Any(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id))
+            Address newAddress = new Address
             {
-                Address newAddress = new Address
-                {
-                    Line1 = address.Line1,
-                    Line2 = address.Line2,
-                    PostalCode = address.PostalCode,
-                    CityId = address.City.Id
-                };
+                Line1 = address.Line1,
+                Line2 = address.Line2,
+                PostalCode = address.PostalCode,
+                CityId = address.City.Id
+            };
 
-                DbContext.Addresses.Add(newAddress);
-                DbContext.SaveChanges();
-            }
+            DbContext.Addresses.Add(newAddress);
+            DbContext.SaveChanges();
 
             return DbContext.Addresses.FirstOrDefault(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id);
         }

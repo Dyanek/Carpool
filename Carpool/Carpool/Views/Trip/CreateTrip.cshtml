@@ -11,11 +11,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $(".datepicker").datepicker();
-    });
-</script>
 
 <h2>Create a trip</h2>
 
@@ -49,7 +44,7 @@
                 @Html.DropDownList("begYear", (SelectList)ViewBag.Years, "Month", new { @class = "form-control date" })
                 @Html.DropDownList("begHour", (SelectList)ViewBag.Hours, "Hour", new { @class = "form-control date" })
                 @Html.DropDownList("begMin", (SelectList)ViewBag.Minutes, "Minutes", new { @class = "form-control date" })*@
-                @Html.TextBox("pBeginning", Convert.ToDateTime(Model.Beginning).ToString("dd/MM/yyyy"), new { @id = "pEventDateStart", @class = "form-control datepicker" })
+                @Html.TextBox("pBeginning", Convert.ToDateTime(Model.Beginning).ToString("dd/MM/yyyy"), new { @class = "form-control datepicker" })
             </div>
         </div>
 
@@ -125,3 +120,9 @@
         </div>
     </div>
 }
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker;
+    });
+</script>
