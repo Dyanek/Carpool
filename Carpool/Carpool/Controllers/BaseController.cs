@@ -96,7 +96,7 @@ namespace Carpool.Controllers
             DbContext.Addresses.Add(newAddress);
             DbContext.SaveChanges();
 
-            return DbContext.Addresses.FirstOrDefault(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id);
+            return DbContext.Addresses.OrderByDescending(x => x.Line1 == address.Line1 && x.Line2 == address.Line2 && x.PostalCode == address.PostalCode && x.CityId == address.City.Id).FirstOrDefault();
         }
     }
 }
