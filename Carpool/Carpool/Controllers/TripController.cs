@@ -14,7 +14,15 @@ namespace Carpool.Controllers
             if (!UserIsConnected())
                 return RedirectToAction("Index", "Home");
 
-            return View();
+            List<Trip> tripsList = new List<Trip>();
+
+            foreach (Trip trip in DbContext.Trips)
+            {
+                if (DbContext.Joins.Any(x => x.UserId == ConnectedUser.Id && x.TripId == trip.Id))
+                    tripsList.Add(trip);
+            }
+
+            return View(tripsList);
         }
 
         [HttpGet]
