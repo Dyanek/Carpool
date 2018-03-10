@@ -25,13 +25,30 @@ namespace Carpool.Controllers
             return View(tripsList);
         }
 
+        public ActionResult DeleteTrip(int pTripId)
+        {
+            DbContext.Joins.RemoveRange(DbContext.Joins.Where(x => x.TripId == pTripId));
+            DbContext.Trips.Remove(DbContext.Trips.FirstOrDefault(x => x.Id == pTripId));
+            DbContext.SaveChanges();
+
+            return RedirectToAction("ManageTrips");
+        }
+
+        public ActionResult LeaveTrip(int pTripId)
+        {
+            DbContext.Joins.Remove(DbContext.Joins.First(x => x.UserId == ConnectedUser.Id && x.TripId == pTripId));
+            DbContext.SaveChanges();
+
+            return RedirectToAction("ManageTrips");
+        }
+
         [HttpGet]
         public ActionResult CreateTrip()
         {
-            Trip trip = new Trip(DateTime.Now.AddHours(2), DateTime.Now.AddHours(1));
-
             if (!UserIsConnected())
                 return RedirectToAction("Index", "Home");
+
+            Trip trip = new Trip(DateTime.Now.AddHours(2), DateTime.Now.AddHours(1));          
 
             ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
 
@@ -44,6 +61,8 @@ namespace Carpool.Controllers
         {
             if (!UserIsConnected())
                 return RedirectToAction("Index", "Home");
+
+            pTrip.UserId = ConnectedUser.Id;
 
             List<string> errorsList = new List<string>();
 
@@ -99,12 +118,7 @@ namespace Carpool.Controllers
                     throw new Exception(e.Message);
                 }
 
-                Joins join = new Joins()
-                {
-                    Date = DateTime.Now,
-                    UserId = ConnectedUser.Id,
-                    TripId = DbContext.Trips.OrderByDescending(x => x.Id).FirstOrDefault().Id
-                };
+                Joins join = new Joins(ConnectedUser.Id, DbContext.Trips.OrderByDescending(x => x.Id).FirstOrDefault().Id);
 
                 DbContext.Joins.Add(join);
                 DbContext.SaveChanges();
@@ -114,9 +128,32 @@ namespace Carpool.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult FindTrips()
         {
-            return View();
+            Trip trip = new Trip(DateTime.Now.AddHours(2), DateTime.Now.AddHours(1));
+
+            ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
+
+            return View(trip);
+        }
+
+        [HttpPost]
+        public ActionResult FindTrips(string s)
+        {
+            //Traitement de recherche
+
+            return View("FoundTrips");
+        }
+
+        public ActionResult JoinTrip(int pTripId)
+        {
+            Joins joins = new Joins(ConnectedUser.Id, pTripId);
+
+            DbContext.Joins.Add(joins);
+            DbContext.SaveChanges();
+
+            return RedirectToAction("ManageTrips");
         }
     }
 }

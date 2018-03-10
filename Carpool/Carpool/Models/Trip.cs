@@ -29,9 +29,11 @@ namespace Carpool.Models
         public System.DateTime Closing { get; set; }
         public int Duration { get; set; }
         public int AddressId { get; set; }
+        public int UserId { get; set; }
     
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Joins> Joins { get; set; }
+        public virtual User user_usr { get; set; }
     }
 }

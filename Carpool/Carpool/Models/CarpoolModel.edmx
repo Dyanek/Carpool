@@ -73,6 +73,7 @@
           <Property Name="tri_closing" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="tri_duration" Type="int" Nullable="false" />
           <Property Name="tri_add_id" Type="int" Nullable="false" />
+          <Property Name="tri_usr_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="user_usr">
           <Key>
@@ -183,6 +184,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_trip_user">
+          <End Role="user_usr" Type="Self.user_usr" Multiplicity="1" />
+          <End Role="trip_tri" Type="Self.trip_tri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_usr">
+              <PropertyRef Name="usr_id" />
+            </Principal>
+            <Dependent Role="trip_tri">
+              <PropertyRef Name="tri_usr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_user_address">
           <End Role="address_add" Type="Self.address_add" Multiplicity="1" />
           <End Role="user_usr" Type="Self.user_usr" Multiplicity="*" />
@@ -246,6 +259,10 @@
           </AssociationSet>
           <AssociationSet Name="fk_trip_address" Association="Self.fk_trip_address">
             <End Role="address_add" EntitySet="address_add" />
+            <End Role="trip_tri" EntitySet="trip_tri" />
+          </AssociationSet>
+          <AssociationSet Name="fk_trip_user" Association="Self.fk_trip_user">
+            <End Role="user_usr" EntitySet="user_usr" />
             <End Role="trip_tri" EntitySet="trip_tri" />
           </AssociationSet>
           <AssociationSet Name="fk_user_address" Association="Self.fk_user_address">
@@ -343,6 +360,8 @@
           <Property Name="AddressId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.fk_trip_address" FromRole="trip_tri" ToRole="address_add" />
           <NavigationProperty Name="Joins" Relationship="Self.fk_joins_trip" FromRole="trip_tri" ToRole="joins_joi" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user_usr" Relationship="carpoolModel.fk_trip_user" FromRole="Trip" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -362,6 +381,7 @@
           <NavigationProperty Name="Joins" Relationship="Self.fk_joins_user" FromRole="user_usr" ToRole="joins_joi" />
           <NavigationProperty Name="SentMessages" Relationship="Self.fk_message_user_sender" FromRole="user_usr" ToRole="message_mes" />
           <NavigationProperty Name="ReceivedMessages" Relationship="Self.fr_message_user_receiver" FromRole="user_usr" ToRole="message_mes" />
+          <NavigationProperty Name="trip_tri" Relationship="carpoolModel.fk_trip_user" FromRole="User" ToRole="Trip" />
         </EntityType>
         <Association Name="fk_address_city">
           <End Role="city_cit" Type="carpoolModel.City" Multiplicity="1" />
@@ -532,7 +552,23 @@
             <End Role="user_usr" EntitySet="Users" />
             <End Role="message_mes" EntitySet="Messages" />
           </AssociationSet>
+          <AssociationSet Name="fk_trip_user" Association="carpoolModel.fk_trip_user">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="fk_trip_user">
+          <End Type="carpoolModel.User" Role="User" Multiplicity="1" />
+          <End Type="carpoolModel.Trip" Role="Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -603,6 +639,7 @@
           <EntitySetMapping Name="Trips">
             <EntityTypeMapping TypeName="carpoolModel.Trip">
               <MappingFragment StoreEntitySet="trip_tri">
+                <ScalarProperty Name="UserId" ColumnName="tri_usr_id" />
                 <ScalarProperty Name="Id" ColumnName="tri_id" />
                 <ScalarProperty Name="NumberOfPlaces" ColumnName="tri_number_of_places" />
                 <ScalarProperty Name="Price" ColumnName="tri_price" />

@@ -22,6 +22,7 @@ namespace Carpool.Models
             this.Joins = new HashSet<Joins>();
             this.SentMessages = new HashSet<Message>();
             this.ReceivedMessages = new HashSet<Message>();
+            this.trip_tri = new HashSet<Trip>();
         }
     
         public int Id { get; set; }
@@ -44,5 +45,7 @@ namespace Carpool.Models
         public virtual ICollection<Message> SentMessages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> ReceivedMessages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Trip> trip_tri { get; set; }
     }
 }

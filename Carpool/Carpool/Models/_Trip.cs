@@ -31,17 +31,11 @@ namespace Carpool.Models
             public DateTime Duration { get; set; }
 
             [Display(Name = "Beginning date")]
-            //[Required(ErrorMessage = "You must enter a valid date, the format is dd/MM/yyyy hh:mm")]
-            //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
-            //[RegularExpression(@"^[0-3]\d\/[0-1]\d\/[2][0]\d{2}\s[0-2]\d:[0-5]\d$", ErrorMessage = "Date must be in format dd/MM/yyyy hh:mm")]
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime Beginning { get; set; }
 
             [Display(Name = "Closing date")]
-            //[Required(ErrorMessage = "You must enter a valid date, the format is dd/MM/yyyy hh:mm")]
-            //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}", ApplyFormatInEditMode = true)]
-            //[RegularExpression(@"^[0-3]\d\/[0-1]\d\/[2][0]\d{2}\s[0-2]\d:[0-5]\d$", ErrorMessage = "Date must be in format dd/MM/yyyy hh:mm")]
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime Closing { get; set; }

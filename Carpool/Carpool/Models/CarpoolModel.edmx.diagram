@@ -23,6 +23,7 @@
         <AssociationConnector Association="carpoolModel.fk_joins_user" ManuallyRouted="false" />
         <AssociationConnector Association="carpoolModel.fk_message_user_sender" ManuallyRouted="false" />
         <AssociationConnector Association="carpoolModel.fr_message_user_receiver" ManuallyRouted="false" />
+        <AssociationConnector Association="carpoolModel.fk_trip_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

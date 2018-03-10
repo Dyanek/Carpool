@@ -7,36 +7,45 @@
 <h2>Manage my trips</h2>
 
 @if (Model.Count() == 0)
-{   
-    <p>You have no trips to manage for the moment</p>
+{
+    <p>You have no planned trips to manage for the moment</p>
 }
 else
 {
 
-    foreach (var item in Model)
+    foreach (var trip in Model)
     {
         <div class="col-md-10 trip">
             <div class="col-sm-3">
-                <p>Destination: @item.Address.Line1/p>
-                <p>@item.Address.Line2</p>
-                <p>@item.Address.PostalCode @item.Address.City.Name</p>
+                <p>Destination: @trip.Address.Line1</p>
+                <p>@trip.Address.Line2</p>
+                <p>@trip.Address.PostalCode @trip.Address.City.Name</p>
             </div>
 
             <div class="col-sm-3">
-                <p>@item.Address.City.Country.Name</p>
-                <p>Number of persons: @item.NumberOfPlaces</p>
-                <p>Price per person: £@item.Price</p>
+                <p>@trip.Address.City.Country.Name</p>
+                <p>Number of persons: @trip.NumberOfPlaces</p>
+                <p>Price per person: £@trip.Price</p>
             </div>
 
             <div class="col-sm-3">
-                <p>Closing: @item.Closing</p>
-                <p>Beginning: @item.Beginning</p>
-                <p>Estimated duration: @item.Duration</p>
+                <p>Closing: @trip.Closing.ToString("dd/MM/yyyy HH:mm")</p>
+                <p>Beginning: @trip.Beginning.ToString("dd/MM/yyyy HH:mm")</p>
+                <p>Estimated duration: @trip.Duration</p>
             </div>
 
-            <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Leave</button>
-            </div>
+            @if (trip.UserId == Convert.ToInt32(Session["Id"]))
+            {
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                    @Html.ActionLink("Delete", "DeleteTrip", "Trip", new { pTripId = trip.Id }, new { @class = "btn btn-primary hvr-icon-fade button-trip" })
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                    @Html.ActionLink("Leave", "LeaveTrip", "Trip", new { pTripId = trip.Id }, new { @class = "btn btn-primary hvr-icon-fade button-trip" })
+                </div>
+            }
         </div>
     }
 }
