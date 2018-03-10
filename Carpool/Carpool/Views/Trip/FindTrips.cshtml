@@ -9,6 +9,13 @@
     @Scripts.Render("~/bundles/jquery-ui")
 }
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+    $(function () {
+        $(".datepicker").datepicker();
+    });
+</script>
+
 <h2>Find trips</h2>
 
 @using (Html.BeginForm())
@@ -18,124 +25,109 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    </div>
-}
-
-<div class="form-horizontal">
-
-    <div class="row">
-        <p>Price between:</p>
-        <div class="form-group">
-            @Html.Label("Lower boundary", htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.TextBox("pLowerBoundary", null, new { @class = "form-control" })
+        <div class="row">
+            <p>Price between:</p>
+            <div class="form-group">
+                @Html.Label("Lower boundary", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pLowerBoundary", null, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
-        <p>And:</p>
-        <div class="form-group">
-            @Html.Label("Upper boundary", htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.TextBox("pUpperBoundary", null, new { @class = "form-control" })
+            <p>And:</p>
+            <div class="form-group">
+                @Html.Label("Upper boundary", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pUpperBoundary", null, new { @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumberOfPlaces, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("pNumberOfPlaces", new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumberOfPlaces, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pNumberOfPlaces", null, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Beginning, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("pBeginningDate", Model.Beginning.ToString("dd/MM/yyyy"), new { @class = "form-control datepicker" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Beginning, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pBeginningDate", Model.Beginning.ToString("dd/MM/yyyy"), new { @class = "form-control datepicker" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="pHourStart" class="control-label col-md-2 required">Beginning hour</label>
-            <div class="col-md-10">
-                @Html.TextBox("pBeginningHour", Model.Beginning.ToString("HH:mm"), new { @placeholder = "hh:mm", @id = "pHourStart", @class = "form-control" })
+            <div class="form-group">
+                <label for="pHourStart" class="control-label col-md-2">Approx beginning hour</label>
+                <div class="col-md-10">
+                    @Html.TextBox("pBeginningHour", Model.Beginning.ToString("HH:mm"), new { @placeholder = "hh:mm", @id = "pHourStart", @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Closing, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("pClosingDate", Model.Closing.ToString("dd/MM/yyyy"), new { @class = "form-control datepicker" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Closing, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pClosingDate", Model.Closing.ToString("dd/MM/yyyy"), new { @class = "form-control datepicker" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="pHourClose" class="control-label col-md-2 required">Beginning hour</label>
-            <div class="col-md-10">
-                @Html.TextBox("pClosingHour", Model.Beginning.ToString("HH:mm"), new { @placeholder = "hh:mm", @id = "pHourClose", @class = "form-control" })
+            <div class="form-group">
+                <label for="pHourClose" class="control-label col-md-2">Approx beginning hour</label>
+                <div class="col-md-10">
+                    @Html.TextBox("pClosingHour", Model.Beginning.ToString("HH:mm"), new { @placeholder = "hh:mm", @id = "pHourClose", @class = "form-control" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("pDuration", new { htmlAttributes = new { @class = "form-control", @placeholder = "Time on the spot in minutes" } })
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <p>Going to:</p>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address.Line1, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address.Line1, new { htmlAttributes = new { @class = "form-control", @placeholder = "The first line of the address" } })
-                @Html.ValidationMessageFor(model => model.Address.Line1, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pDuration", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "Time on the spot in minutes" } })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address.Line2, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address.Line2, new { htmlAttributes = new { @class = "form-control", @placeholder = "The second line of the address, if necessary" } })
-                @Html.ValidationMessageFor(model => model.Address.Line2, "", new { @class = "text-danger" })
+        <div class="row">
+            <p>Going to:</p>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address.Line1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pLine1", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "The first line of the address" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address.Line2, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pLine2", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "The second line of the address, if necessary" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pPostalCode", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "The postal code of the address" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address.City.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("pCityName", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "The nearest city the address is from" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address.City.Country.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("pCountryId", (SelectList)ViewBag.CountriesList, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Address.City.Country, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address.PostalCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "The postal code of the address" } })
-                @Html.ValidationMessageFor(model => model.Address.PostalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address.City.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address.City.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "The nearest city the address is from" } })
-                @Html.ValidationMessageFor(model => model.Address.City.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address.City.Country.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Address.City.Country.Id, (SelectList)ViewBag.CountriesList, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Address.City.Country, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-10">
 
         <div class="form-group row text-center">
             <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-default hvr-icon-back" })
-            </div>
-
-            <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                <button type="submit" class="btn btn-primary hvr-icon-fade">Find trips</button>
+                <input type="submit" value="Find trips" class="btn btn-primary" />
             </div>
         </div>
     </div>
-</div>
+}

@@ -201,6 +201,7 @@
     <Compile Include="Models\_Address.cs" />
     <Compile Include="Models\_City.cs" />
     <Compile Include="Models\_Country.cs" />
+    <Compile Include="Models\_Joins.cs" />
     <Compile Include="Models\_Trip.cs" />
     <Compile Include="Models\_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -267,7 +268,7 @@
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Trip\FindTrips.cshtml" />
-    <Content Include="Views\Trip\_FoundTrips.cshtml" />
+    <Content Include="Views\Trip\FoundTrips.cshtml" />
     <Content Include="Views\Account\CreateAccount.cshtml" />
     <Content Include="Views\Trip\CreateTrip.cshtml" />
     <Content Include="Views\Trip\ManageTrips.cshtml" />

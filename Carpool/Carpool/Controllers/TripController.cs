@@ -48,7 +48,7 @@ namespace Carpool.Controllers
             if (!UserIsConnected())
                 return RedirectToAction("Index", "Home");
 
-            Trip trip = new Trip(DateTime.Now.AddHours(2), DateTime.Now.AddHours(1));          
+            Trip trip = new Trip(DateTime.Now.AddHours(2), DateTime.Now.AddHours(1));
 
             ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
 
@@ -66,7 +66,8 @@ namespace Carpool.Controllers
 
             List<string> errorsList = new List<string>();
 
-            if (pBeginningDate == null || pBeginningHour == null || pClosingDate == null || pClosingHour == null || pTrip.Address.Line1 == null || pTrip.Address.PostalCode == null || pTrip.Address.City.Name == null)
+            if (pBeginningDate == null || pBeginningHour == null || pClosingDate == null || pClosingHour == null || pTrip.Address.Line1 == null
+                || pTrip.Address.PostalCode == null || pTrip.Address.City.Name == null)
                 errorsList.Add("One compulsory field or more are empty.");
 
             if (pTrip.NumberOfPlaces <= 0 || pTrip.NumberOfPlaces > 10)
@@ -139,9 +140,38 @@ namespace Carpool.Controllers
         }
 
         [HttpPost]
-        public ActionResult FindTrips(string s)
+        public ActionResult FindTrips(string pLowerBoundary, string pUpperBoundary, string pNumberOfPlaces, string pBeginningDate, string pBeginningHour,
+            string pClosingDate, string pClosingHour, string pDuration, string pLine1, string pLine2, string pPostalCode, string pCityName, string pCountryId)
         {
             //Traitement de recherche
+
+            string query = "SELECT * FROM trip_tri WHERE ";
+
+            if (pLowerBoundary != null)
+                query += "tri_price >= " + pLowerBoundary +" ";
+
+            if (pUpperBoundary != null)
+                query += "tri_price <= " + pUpperBoundary + " ";
+
+            if(pNumberOfPlaces != null)
+                query += "tri_number_of_places = " + pNumberOfPlaces + " ";
+
+            DateTime? beginning = null;
+
+            if (!string.IsNullOrEmpty(pBeginningDate) && !string.IsNullOrEmpty(pBeginningHour))
+                beginning = Convert.ToDateTime(pBeginningDate + "-" + pBeginningHour).ToUniversalTime();
+
+            if (beginning != null)
+                query += "tri_beginning >= '" + beginning + "' ";
+
+            DateTime? closing = null;
+            if (!string.IsNullOrEmpty(pClosingDate) && !string.IsNullOrEmpty(pClosingHour))
+                closing = Convert.ToDateTime(pClosingDate + "-" + pClosingHour).ToUniversalTime();
+
+            
+
+
+            //DbContext.Database.SqlQuery();
 
             return View("FoundTrips");
         }
