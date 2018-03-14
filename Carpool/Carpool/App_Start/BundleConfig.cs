@@ -28,6 +28,9 @@ namespace Carpool
 
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
                       "~/Scripts/jquery-ui.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/joinTrip").Include(
+                      "~/Scripts/joinTrip.js"));
         }
     }
 }

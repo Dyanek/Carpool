@@ -16,7 +16,7 @@ namespace Carpool.Controllers
 
             List<Trip> tripsList = new List<Trip>();
 
-            foreach (Trip trip in DbContext.Trips)
+            foreach (Trip trip in DbContext.Trips.Where(x => x.Beginning > DateTime.Now))
             {
                 if (DbContext.Joins.Any(x => x.UserId == ConnectedUser.Id && x.TripId == trip.Id))
                     tripsList.Add(trip);
@@ -147,33 +147,46 @@ namespace Carpool.Controllers
 
             string query = "SELECT * FROM trip_tri WHERE ";
 
-            if (pLowerBoundary != null)
-                query += "tri_price >= " + pLowerBoundary +" ";
+            if (pLowerBoundary != "")
+                query += "tri_price >= " + pLowerBoundary + " ";
 
-            if (pUpperBoundary != null)
+            if (pUpperBoundary != "")
                 query += "tri_price <= " + pUpperBoundary + " ";
 
-            if(pNumberOfPlaces != null)
+            if (pNumberOfPlaces != "")
                 query += "tri_number_of_places = " + pNumberOfPlaces + " ";
 
-            DateTime? beginning = null;
+            DateTime beginning = DateTime.Now;
 
             if (!string.IsNullOrEmpty(pBeginningDate) && !string.IsNullOrEmpty(pBeginningHour))
                 beginning = Convert.ToDateTime(pBeginningDate + "-" + pBeginningHour).ToUniversalTime();
 
-            if (beginning != null)
-                query += "tri_beginning >= '" + beginning + "' ";
+            beginning = beginning.AddHours(-1);
 
-            DateTime? closing = null;
+            if (beginning != null)
+                query += "tri_beginning >= '" + beginning.Year + "-" + beginning.Month + "-" + beginning.Day + " " + beginning.Hour + ":" + beginning.Minute + "' ";
+
+            DateTime closing = DateTime.Now;
+
             if (!string.IsNullOrEmpty(pClosingDate) && !string.IsNullOrEmpty(pClosingHour))
                 closing = Convert.ToDateTime(pClosingDate + "-" + pClosingHour).ToUniversalTime();
 
-            
+            if (closing != null)
+                query += "tri_closing >= '" + closing.Year + "-" + closing.Month + "-" + closing.Day + " " + closing.Hour + ":" + closing.Minute + "' ";
 
+            if (pDuration != "")
+                query += "tri_duration = " + pDuration + " ";
 
-            //DbContext.Database.SqlQuery();
+            //DbContext.Database.SqlQuery(type, query, null);
 
-            return View("FoundTrips");
+            IQueryable<Trip> trips;
+
+            if (ConnectedUser == null)
+                trips = DbContext.Trips.Where(x => x.Closing > DateTime.Now).OrderBy(x => x.Beginning);
+            else
+                trips = DbContext.Trips.Where(x => x.Closing > DateTime.Now && x.UserId != ConnectedUser.Id).OrderBy(x => x.Beginning);
+
+            return View("FoundTrips", trips);
         }
 
         public ActionResult JoinTrip(int pTripId)
