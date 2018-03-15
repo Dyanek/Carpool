@@ -212,7 +212,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Models\CarpoolModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CarpoolModel.Context.cs</LastGenOutput>
@@ -263,7 +263,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Account\ManageFriends.cshtml" />
     <Content Include="Views\Account\_FindFriend.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
@@ -273,6 +272,7 @@
     <Content Include="Views\Account\CreateAccount.cshtml" />
     <Content Include="Views\Trip\CreateTrip.cshtml" />
     <Content Include="Views\Trip\ManageTrips.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

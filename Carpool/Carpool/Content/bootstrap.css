@@ -3362,6 +3362,7 @@ input[type="button"].btn-block {
 }
 
 .btn-primary .caret,
+.btn-secondary .caret,
 .btn-success .caret,
 .btn-warning .caret,
 .btn-danger .caret,
@@ -3374,11 +3375,12 @@ input[type="button"].btn-block {
 }
 
 .dropup .btn-primary .caret,
+.dropup .btn-secondary .carret,
 .dropup .btn-success .caret,
 .dropup .btn-warning .caret,
 .dropup .btn-danger .caret,
 .dropup .btn-info .caret {
-  border-bottom-color: #fff;
+    border-bottom-color: #fff;
 }
 
 .btn-group,

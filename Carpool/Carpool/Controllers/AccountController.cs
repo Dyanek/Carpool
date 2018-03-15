@@ -94,12 +94,60 @@ namespace Carpool.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult UserProfile()
         {
             if (!UserIsConnected())
                 return RedirectToAction("Index", "Home");
 
+            ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
+
             return View(ConnectedUser);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfile(User pUser)
+        {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
+            List<string> errorsList = new List<string>();
+
+            if (pUser.UserName == null || pUser.Password == null || pUser.FirstName == null || pUser.LastName == null || pUser.Email == null || pUser.PhoneNumber == null || pUser.Address.Line1 == null || pUser.Address.PostalCode == null || pUser.Address.City.Name == null)
+                errorsList.Add("One compulsory field or more are empty.");
+
+            if (DbContext.Users.Any(x => x.UserName == pUser.UserName && x.Id != ConnectedUser.Id))
+                errorsList.Add("This user name is already used");
+
+            if (DbContext.Users.Any(x => x.Email == pUser.Email && x.Id != ConnectedUser.Id))
+                errorsList.Add("This email address is already used");          
+
+            if (errorsList.Any())
+            {
+                TempData["Error"] = ConcatenateErrors(errorsList);
+
+                ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
+
+                return View();
+            }
+            else
+            {
+
+
+                TempData["Success"] = "Your information were successfully modified";
+
+                return View(pUser);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
+            return View();
         }
 
         public ActionResult ManageFriends()

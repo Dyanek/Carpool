@@ -1,91 +1,109 @@
-﻿
+﻿@model Carpool.Models.User
+
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "User settings";
 }
 
-<h2>Profile</h2>
+<h2>UserProfile</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-
-    <div class="row">
-        <div class="form-group">
-            <p class="control-label col-md-2">User name*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="BobRazo">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">First name*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="Bob">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Last name*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="Razowski">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Email*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="bob.razowski@gmail.com">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Phone number*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="+44123456789">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group">
-            <p class="control-label col-md-2">Address line 1*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="13 Hami street">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Address line 2</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">City*</p>
-            <div class="col-md-3">
-                <input type="text" class="form-control" value="Paisley">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <p class="control-label col-md-2">Country*</p>
-            <div class="col-md-3">
-                @Html.DropDownList("County", new SelectList(new List<string>() { "United-Kingdom", "Germany", "France", "Belgium", "Italy"}), new { @class = "form-control" })
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-10">
+    <div class="form-horizontal">
+        <h4>User</h4>
         <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.Line1, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.Line1, new { htmlAttributes = new { @class = "form-control", @placeholder = "The first line of your address" } })
+                @Html.ValidationMessageFor(model => model.Address.Line1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.Line2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.Line2, new { htmlAttributes = new { @class = "form-control", @placeholder = "The second line of your address, if necessary" } })
+                @Html.ValidationMessageFor(model => model.Address.Line2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.PostalCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your postal code" } })
+                @Html.ValidationMessageFor(model => model.Address.PostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.City.Name, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address.City.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "The nearest city you are from" } })
+                @Html.ValidationMessageFor(model => model.Address.City.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address.City.Country.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Address.City.Country.Id, (SelectList)ViewBag.CountriesList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address.City.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group row text-center">
-            <p class="control-label col-md-3">* = compulsory fields</p>
+            <p class="control-label col-md-3">* = Compulsory fields</p>
             <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                @Html.ActionLink("Cancel", "UserProfile", "Account", new { @class = "btn btn-default hvr-icon-back NewsBtnDelet" })
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+
             <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                <button type="submit" class="btn btn-primary hvr-icon-fade">Confirm</button>
+                @Html.ActionLink("Change password", "ChangePassword", null, new { @class = "btn btn-secondary" })
             </div>
         </div>
     </div>
-</div>
+}
