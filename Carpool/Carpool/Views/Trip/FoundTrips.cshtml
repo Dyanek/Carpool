@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<Carpool.Models.Trip>
 
-@Scripts.Render("~/bundles/joinTrip")
-
 <h2>Trips found</h2>
 
 @if (Model.Count() == 0)
@@ -40,9 +38,11 @@ else
             @if (Session["Id"] != null)
             {
                 <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-                    @Html.ActionLink("Join", "JoinTrip", "Trip", new { pTripId = trip.Id }, new { @class = "btn btn-primary hvr-icon-fade button-trip" })
+                    <span class="btn btn-primary join-trip" id="@trip.Id">Join</span>
                 </div>
             }
         </div>
     }
 }
+
+@Scripts.Render("~/bundles/joinTrip")
