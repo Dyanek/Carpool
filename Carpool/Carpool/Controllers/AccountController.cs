@@ -116,11 +116,19 @@ namespace Carpool.Controllers
             if (pUser.UserName == null || pUser.Password == null || pUser.FirstName == null || pUser.LastName == null || pUser.Email == null || pUser.PhoneNumber == null || pUser.Address.Line1 == null || pUser.Address.PostalCode == null || pUser.Address.City.Name == null)
                 errorsList.Add("One compulsory field or more are empty.");
 
+            ConnectedUser.FirstName = pUser.FirstName;
+            ConnectedUser.LastName = pUser.LastName;
+            ConnectedUser.PhoneNumber = pUser.PhoneNumber;
+
             if (DbContext.Users.Any(x => x.UserName == pUser.UserName && x.Id != ConnectedUser.Id))
                 errorsList.Add("This user name is already used");
 
+            ConnectedUser.UserName = pUser.UserName;
+
             if (DbContext.Users.Any(x => x.Email == pUser.Email && x.Id != ConnectedUser.Id))
-                errorsList.Add("This email address is already used");          
+                errorsList.Add("This email address is already used");
+
+            ConnectedUser.Email = pUser.Email;
 
             if (errorsList.Any())
             {
@@ -132,10 +140,18 @@ namespace Carpool.Controllers
             }
             else
             {
-                base.DbContext.Entry(pUser).State = EntityState.Modified;
-                base.DbContext.SaveChanges();
+                pUser.Address.City = CheckCity(pUser.Address.City.Name, pUser.Address.City.Country.Id);
+
+                if (ConnectedUser.Address.City.Name != pUser.Address.City.Name || ConnectedUser.Address.City.CountryId != pUser.Address.City.CountryId || ConnectedUser.Address.Line1 != pUser.Address.Line1 ||
+                    ConnectedUser.Address.Line2 != pUser.Address.Line2 || ConnectedUser.Address.PostalCode != pUser.Address.PostalCode)
+                    ConnectedUser.Address = CheckAddress(pUser.Address);
+
+                DbContext.Entry(ConnectedUser).State = EntityState.Modified;
+                DbContext.SaveChanges();
 
                 TempData["Success"] = "Your information were successfully modified";
+
+                ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
 
                 return View(pUser);
             }
@@ -148,6 +164,43 @@ namespace Carpool.Controllers
                 return RedirectToAction("Index", "Home");
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string pCurrentPassword, string pNewPassword, string pNewPassword2)
+        {
+            if (!UserIsConnected())
+                return RedirectToAction("Index", "Home");
+
+            List<string> errorsList = new List<string>();
+
+            if (ConnectedUser.Password != Encrypt.EncryptValue(pCurrentPassword))
+                errorsList.Add("The current password entered does not match with your current password");
+
+            if (pNewPassword != pNewPassword2)
+                errorsList.Add("The two new passwords are different");
+
+            if (errorsList.Any())
+            {
+                TempData["Error"] = ConcatenateErrors(errorsList);
+
+                ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
+
+                return View();
+            }
+            else
+            {
+                ConnectedUser.Password = Encrypt.EncryptValue(pNewPassword);
+
+                DbContext.Entry(ConnectedUser).State = EntityState.Modified;
+                DbContext.SaveChanges();
+
+                TempData["Success"] = "Your password was successfully changed";
+
+                ViewBag.CountriesList = new SelectList(DbContext.Countries.Where(x => x.Name != null).ToList(), "Id", "Name");
+
+                return RedirectToAction("UserProfile");
+            } 
         }
 
         public ActionResult ManageFriends()

@@ -7,7 +7,7 @@ namespace Carpool.Models
     {
         private class CountryMetadata
         {
-            [Display(Name = "Country name")]
+            [Display(Name = "Country")]
             [Required(ErrorMessage = "Please enter your country's name")]
             public string Name { get; set; }
         }
