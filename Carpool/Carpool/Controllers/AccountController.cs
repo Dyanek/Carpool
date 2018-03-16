@@ -1,8 +1,7 @@
 ﻿using Carpool.Models;
-using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Carpool.Controllers
@@ -133,7 +132,8 @@ namespace Carpool.Controllers
             }
             else
             {
-
+                base.DbContext.Entry(pUser).State = EntityState.Modified;
+                base.DbContext.SaveChanges();
 
                 TempData["Success"] = "Your information were successfully modified";
 
