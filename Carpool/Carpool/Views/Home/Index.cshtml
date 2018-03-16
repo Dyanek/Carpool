@@ -1,13 +1,13 @@
-﻿@model Carpool.Models.User
+﻿@model IEnumerable<Carpool.Models.Trip>
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-@if (Model == null)
-{
-    <h2>Home page</h2>
+<h2>Home page</h2>
 
+@if (Session["Id"] == null)
+{
     <div class="jumbotron">
         <p>
             Carpool is  a website permitting you to organize trips with your neighbours. This will permit you to pay less money for your trips.
@@ -20,59 +20,39 @@
 }
 else
 {
-    <h2>Home page</h2>
-
     <p class="lead">
         Incoming trips near you
     </p>
 
+    foreach (var trip in Model)
+    {
+        <div class="col-md-10 trip">
+            <div class="col-sm-3">
+                <p>Destination: @trip.Address.Line1</p>
+                <p>@trip.Address.Line2</p>
+                <p>@trip.Address.PostalCode @trip.Address.City.Name</p>
+            </div>
 
-    <div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px; margin-bottom: 1%">
-        <div class="col-sm-3">
-            <p>Trip to Morrisons</p>
-            <p>Destination: 13 Laca street</p>
-            <p>City: Glasgow</p>
+            <div class="col-sm-3">
+                <p>@trip.Address.City.Country.Name</p>
+                <p>Number of persons: @trip.NumberOfPlaces</p>
+                <p>Price per person: £@trip.Price</p>
+            </div>
+
+            <div class="col-sm-3">
+                <p>Closing: @trip.Closing.ToString("dd/MM/yyyy HH:mm")</p>
+                <p>Beginning: @trip.Beginning.ToString("dd/MM/yyyy HH:mm")</p>
+                <p>Estimated duration: @trip.Duration</p>
+            </div>
+
+            @if (Session["Id"] != null)
+            {
+                <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
+                    <span class="btn btn-primary join-trip" id="@trip.Id">Join</span>
+                </div>
+            }
         </div>
+    }
 
-        <div class="col-sm-3">
-            <p>Postal Code: GL1 3QP</p>
-            <p>Country: United-kindom</p>
-            <p>Number of persons: 3</p>
-
-        </div>
-
-        <div class="col-sm-3">
-            <p>Price per person: £1.25</p>
-            <p>Beginning: 14:30</p>
-            <p>Estimated duration: 1h30</p>
-        </div>
-
-        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-            <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Join</button>
-        </div>
-    </div>
-
-    <div class="col-md-10" style="border-style:solid; border-width: 1px; border-radius: 5px 5px;">
-        <div class="col-sm-3">
-            <p>Trip to Morrisons</p>
-            <p>Destination: 13 Laca street</p>
-            <p>City: Paisley</p>
-        </div>
-
-        <div class="col-sm-3">
-            <p>Postal Code: PA1 3QP</p>
-            <p>Country: United-kindom</p>
-            <p>Number of persons: 4</p>
-        </div>
-
-        <div class="col-sm-3">
-            <p>Price per person: £2.50</p>
-            <p>Beginning: 09:45</p>
-            <p>Estimated duration: 2h00</p>
-        </div>
-
-        <div class="col-md-2 col-sm-2 col-lg-2 col-xs-12">
-            <button type="submit" class="btn btn-primary hvr-icon-fade button-trip">Join</button>
-        </div>
-    </div>
+    @Scripts.Render("~/bundles/joinTrip")
 }

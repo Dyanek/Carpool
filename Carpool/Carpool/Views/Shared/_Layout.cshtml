@@ -64,7 +64,20 @@
     </div>
 
     <footer class="container body-content">
-        <p>&copy; @DateTime.Now.Year - Carpool</p>
+        
+
+        <div class="col-md-2">
+            <a href="http://www.facebook.com/assocFIAI" target="_blank"><i class="fa fa-facebook-square fa-3x"></i></a>
+        </div>
+        <div class="col-md-2 col-md-offset-1">
+            @Html.ActionLink("About", "About")
+        </div>
+        <div class="col-md-2 col-md-offset-1">
+            @Html.ActionLink("Contact", "Contact")
+        </div>
+        <div class="col-md-2 col-md-offset-2">
+            <p>&copy; @DateTime.Now.Year - Carpool</p>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/bootstrap")

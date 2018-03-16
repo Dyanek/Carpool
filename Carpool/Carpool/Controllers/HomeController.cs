@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using Carpool.Models;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Carpool.Controllers
 {
@@ -6,7 +9,10 @@ namespace Carpool.Controllers
     {
         public ActionResult Index()
         {
-                return View(ConnectedUser);
+            IQueryable<Trip> trips = DbContext.Trips.Where(x => x.Closing > DateTime.Now && x.NumberOfPlaces > DbContext.Joins.Where(j => j.TripId == x.Id).Count()
+                && x.UserId != ConnectedUser.Id && !DbContext.Joins.Any(j => j.TripId == x.Id && j.UserId == ConnectedUser.Id)).OrderBy(x => x.Beginning);
+
+            return View(trips);
         }
 
         public ActionResult About()
