@@ -1,7 +1,7 @@
 ﻿$('.join-trip').click(function (id) {
     var tripId = id.currentTarget.attributes[1].value;
     $.ajax({
-        url: 'JoinTrip',
+        url: 'Trip/JoinTrip',
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({ pTripId: tripId }),
